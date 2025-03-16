@@ -23,8 +23,13 @@ session_start();
                     if(isset($_SESSION["admin"])){
                         echo"
                         <li class=nav-item>
-                            <a class=nav-link href=/admin>
-                                Admin
+                            <a class=nav-link href=/editSite>
+                                Edit Site
+                            </a>
+                        </li>
+                        <li class=nav-item>
+                            <a class=nav-link href=/manageList>
+                                Edit Listings
                             </a>
                         </li>";
                     }

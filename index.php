@@ -1,6 +1,7 @@
 <?php
 
-$request = $_SERVER['REQUEST_URI'];
+//$request = $_SERVER['REQUEST_URI'];
+$request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 $viewDir = '/pages/';
 switch ($request) {
@@ -26,8 +27,12 @@ switch ($request) {
         require __DIR__ . $viewDir . 'logout.php';
         break;
     
-    case '/admin':
-        require __DIR__ . $viewDir . 'admin.php';
+    case '/manageList':
+        require __DIR__ . $viewDir . 'manageList.php';
+        break;
+
+    case '/editList':
+        require __DIR__ . $viewDir . 'editList.php';
         break;
     
     case '/listings':
