@@ -15,7 +15,7 @@
                 For existing members, please go to the
                 <a href="#">Sign In page</a>.
             </p>
-            <form action="process_register.php" method="post">
+            <form action="../backend/process_register.php" method="post">
                 <div class="mb-3">
                     <form-label for="fname">First Name:</form-label>
                     <input type="text" id="fname" name="fname" class="form-control" maxlength="45"

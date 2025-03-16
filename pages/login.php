@@ -15,7 +15,7 @@
                 Rxisting members log in here. For new members, please go to the
                 <a href="register.php">Member Registration page</a>.
             </p>
-            <form action="process_login.php" method="post">
+            <form action="../backend/process_login.php" method="post">
 
                 <div class="mb-3">
                     <form-label for="email">Email:</form-label>

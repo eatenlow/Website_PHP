@@ -25,10 +25,10 @@ session_start();
             //if(!isset($_COOKIE["MYCOOKIE"])){
             if(!isset($_SESSION["login"])){
                 echo "<li class=nav-item>
-                    <a class='nav-link' href=login.php>Login</a>
+                    <a class='nav-link' href=/login>Login</a>
                 </li>
                 <li class='nav-item'>
-                    <a class=nav-link href=register.php>Sign Up</a>
+                    <a class=nav-link href=/register>Sign Up</a>
                 </li>";
             }
             else{
@@ -38,7 +38,7 @@ session_start();
                 </li>";
                 }
                 echo"<li class=nav-item>
-                    <a class=nav-link href=profile.php>Profile</a>
+                    <a class=nav-link href=/profile>Profile</a>
                 </li>
                 <li class=nav-item>
                 <a class=nav-link href=logout.php>logout</a>

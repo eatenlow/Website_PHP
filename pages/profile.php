@@ -74,7 +74,7 @@
             }
             getUser();
         ?>
-            <form action="update_profile.php" method="post">
+            <form action="../backend/update_profile.php" method="post">
             <div class="mb-3">
                     <form-label for="fname">First Name:</form-label>
                     <?php 
