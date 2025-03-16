@@ -1,19 +1,21 @@
 <html>
     <head>
-        <title>World of Pets</title>
-        <?php
-            include "inc/head.inc.php";
-        ?>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home | PetAdopt</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+        <title>Home | PetAdopt</title>
+        <?php include 'inc/navbar.inc.php'; ?>
     </head>
     <body>
-        <?php
-        include "inc/nav.inc.php";
-        ?>
         <main class="container-lg w-60 w-md-80 w-sm-90 w-100 mx-auto">
         <h1><strong>Member Registration</strong></h1>
             <p>
                 For existing members, please go to the
-                <a href="#">Sign In page</a>.
+                <a href="/login">Sign In page</a>.
             </p>
             <form action="../backend/process_register.php" method="post">
                 <div class="mb-3">

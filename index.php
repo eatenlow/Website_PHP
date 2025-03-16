@@ -27,6 +27,22 @@ switch ($request) {
         require __DIR__ . $viewDir . 'admin.php';
         break;
     
+    case '/listings':
+        require __DIR__ . $viewDir . 'listings.php';
+        break;
+
+    case '/about':
+        require __DIR__ . $viewDir . 'about.php';
+        break;
+
+    case '/checkout':
+        require __DIR__ . $viewDir . 'checkout.php';
+        break;
+
+    case '/events':
+        require __DIR__ . $viewDir . 'events.php';
+        break;
+        
     default:
         http_response_code(404);
         require __DIR__ . $viewDir . '404.php';

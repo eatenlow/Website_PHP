@@ -27,7 +27,7 @@
         <div class="container">
             <h1>Find Your New Best Friend</h1>
             <p>Adopt a pet and give them a loving home today.</p>
-            <a href="listings.php" class="btn btn-primary">View Available Pets</a>
+            <a href="/listings" class="btn btn-primary">View Available Pets</a>
         </div>
     </header>
 
@@ -49,7 +49,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Buddy</h5>
                         <p class="card-text">A playful golden retriever looking for a home.</p>
-                        <a href="listings.php" class="btn btn-success">Adopt Now</a>
+                        <a href="/listings" class="btn btn-success">Adopt Now</a>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Mittens</h5>
                         <p class="card-text">A cute and cuddly kitten waiting for a family.</p>
-                        <a href="listings.php" class="btn btn-success">Adopt Now</a>
+                        <a href="/listings" class="btn btn-success">Adopt Now</a>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Charlie</h5>
                         <p class="card-text">An energetic beagle who loves to play.</p>
-                        <a href="listings.php" class="btn btn-success">Adopt Now</a>
+                        <a href="/listings" class="btn btn-success">Adopt Now</a>
                     </div>
                 </div>
             </div>
@@ -126,7 +126,7 @@
                     <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded p-3">
                         <h5>Pet Adoption Drive - April 2025</h5>
                         <p>Join us for a special adoption event at the city park!</p>
-                        <a href="events.php" class="btn btn-outline-light">View Details</a>
+                        <a href="/events" class="btn btn-outline-light">View Details</a>
                     </div>
                 </div>
 
@@ -136,7 +136,7 @@
                     <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded p-3">
                         <h5>Free Pet Health Check-Up</h5>
                         <p>Come and get a free health check for your pet at our center.</p>
-                        <a href="events.php" class="btn btn-outline-light">View Details</a>
+                        <a href="/events" class="btn btn-outline-light">View Details</a>
                     </div>
                 </div>
 
@@ -146,7 +146,7 @@
                     <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded p-3">
                         <h5>Pet Training Workshop</h5>
                         <p>Learn how to train your pet with the help of experts.</p>
-                        <a href="events.php" class="btn btn-outline-light">View Details</a>
+                        <a href="/events" class="btn btn-outline-light">View Details</a>
                     </div>
                 </div>
 

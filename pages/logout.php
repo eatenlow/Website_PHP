@@ -1,10 +1,8 @@
 
 <html>
     <head>
-        <title>World of Pets</title>
-        <?php
-            include "inc/head.inc.php";
-        ?>
+        <title>Home | PetAdopt</title>
+        <?php include 'inc/navbar.inc.php'; ?>
     </head>
     <body>
         <?php
