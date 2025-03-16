@@ -66,12 +66,12 @@
                 // var_dump($pwd_hashed);
                 echo"</p>";
                 
-                echo "<form action=index.php><button type=submit class='btn btn-success'>Log in</button></form>";
+                echo "<a action=/home><button type=submit class='btn btn-success'>Log in</button></a>";
             }
             else{
                 echo "<h4><strong>The following input errors were detected:</strong></h4>";
                 echo "<p>" . $errorMsg . "</p>";
-                echo "<form action=register.php><button class='btn btn-danger'>Return to Sign Up</button></form>";
+                echo "<a action=/register><button class='btn btn-danger'>Return to Sign Up</button></a>";
             }
         }
         else{

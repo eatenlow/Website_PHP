@@ -7,8 +7,10 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
-        <title>Home | PetAdopt</title>
-        <?php include 'inc/navbar.inc.php'; ?>
+        <?php 
+            include 'inc/head.inc.php';
+            include 'inc/navbar.inc.php'; 
+        ?>
     </head>
     <body>
         <main class="container-lg w-60 w-md-80 w-sm-90 w-100 mx-auto">

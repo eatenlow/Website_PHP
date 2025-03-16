@@ -1,15 +1,16 @@
 
 <html>
     <head>
-        <title>World of Pets</title>
-        <?php
-            include "inc/head.inc.php";
-        ?>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home | PetAdopt</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+        <?php include 'inc/navbar.inc.php'; ?>
     </head>
     <body>
-        <?php
-        include "inc/nav.inc.php";
-        ?>
         <main class="container">
         <?php
 
@@ -61,13 +62,13 @@
                 var_dump($pwd_hashed);
                 echo"</p>";
                 
-                echo "<form action=index.php><button type=submit class='btn btn-success'>Log in</button></form>";
+                echo "<a action=/home><button type=submit class='btn btn-success'>Log in</button></a>";
                 unset($_SESSION['pw_hash']); 
             }
             else{
                 echo "<h4><strong>The following input errors were detected:</strong></h4>";
                 echo "<p>" . $errorMsg . "</p>";
-                echo "<form action=index.php><button class='btn btn-danger'>Return to Home</button></form>";
+                echo "<a action=/home><button class='btn btn-danger'>Return to Home</button></a>";
             }
         }
         else{

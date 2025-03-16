@@ -1,19 +1,17 @@
 <html>
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Home | PetAdopt</title>
-        <link rel="stylesheet" href="css/styles.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-
-        <title>Home | PetAdopt</title>
-        <?php include 'inc/navbar.inc.php'; ?>
+        <?php 
+            include 'inc/head.inc.php';
+            include 'inc/navbar.inc.php'; 
+        ?>
     </head>
     <body>
         <main class="container-lg w-60 w-md-80 w-sm-90 w-100 mx-auto">
         <h1><strong>Profile</strong></h1>
-        <?php 
+        <?php
+            if(!isset($_SESSION["login"])){
+                header("Location: /");
+            } 
             function getUser(){
                 global $fname, $lname, $email, $pwd_hashed, $address, $dob, $dob_display, $errorMsg, $success;
                 // Create database connection.
@@ -64,20 +62,11 @@
                 $conn->close();
                 }
             }
-            function debug_to_console($data) {
-                $output = $data;
-                if (is_array($output))
-                    $output = implode(',', $output);
-            
-                echo $output;
-            }
-            if(!isset($_SESSION["login"])){
-                header("Location: /");
-            }
+
             getUser();
         ?>
             <form action="../backend/update_profile.php" method="post">
-            <div class="mb-3">
+                <div class="mb-3">
                     <form-label for="fname">First Name:</form-label>
                     <?php 
                     echo '<input type="text" id="fname" name="fname" class="form-control" maxlength="45"
@@ -123,10 +112,8 @@
                     placeholder="Enter new password" value="">
                 </div>
 
-            <button class="btn btn-primary" type="submit">Update Details</button>
+                <button class="btn btn-primary" type="submit">Update Details</button>
             </form>
-
-
         </main>
     <?php
     include "inc/footer.inc.php";

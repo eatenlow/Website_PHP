@@ -1,13 +1,12 @@
 
 <html>
     <head>
-        <title>Home | PetAdopt</title>
-        <?php include 'inc/navbar.inc.php'; ?>
+        <?php 
+            include 'inc/head.inc.php';
+            include 'inc/navbar.inc.php'; 
+        ?>
     </head>
     <body>
-        <?php
-        include "inc/nav.inc.php";
-        ?>
         <main class="container">
         <?php
             session_destroy();

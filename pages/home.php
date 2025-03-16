@@ -2,20 +2,14 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | PetAdopt</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <?php
-    include 'inc/carousel.php'; // Load the function for fetching OG images
-
-    $articles = [
-        ["title" => "Nparks", "url" => "https://www.nparks.gov.sg/publications-resources/articles/getting-a-pet--adopt-or-purchase"],
-        ["title" => "Interview with The Pet Gazette", "url" => "https://www.straitstimes.com/singapore/drop-in-pet-adoption-rates-as-more-people-return-to-office-animal-shelters"],
-        ["title" => "Trending on Social Media", "url" => "https://twitter.com/trendingadoption"]
-    ];
+        include 'inc/carousel.php'; // Load the function for fetching OG images
+        include 'inc/head.inc.php';
+        $articles = [
+            ["title" => "Nparks", "url" => "https://www.nparks.gov.sg/publications-resources/articles/getting-a-pet--adopt-or-purchase"],
+            ["title" => "Interview with The Pet Gazette", "url" => "https://www.straitstimes.com/singapore/drop-in-pet-adoption-rates-as-more-people-return-to-office-animal-shelters"],
+            ["title" => "Trending on Social Media", "url" => "https://twitter.com/trendingadoption"]
+        ];
     ?>
 
 </head>

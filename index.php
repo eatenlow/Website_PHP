@@ -5,9 +5,8 @@ $request = $_SERVER['REQUEST_URI'];
 $viewDir = '/pages/';
 switch ($request) {
     case '':
-        require __DIR__ . $viewDir . 'home.php';
-        break;
     case '/':
+    case '/home':
         require __DIR__ . $viewDir . 'home.php';
         break;
 
@@ -23,6 +22,10 @@ switch ($request) {
         require __DIR__ . $viewDir . 'login.php';
         break;
 
+    case '/logout':
+        require __DIR__ . $viewDir . 'logout.php';
+        break;
+    
     case '/admin':
         require __DIR__ . $viewDir . 'admin.php';
         break;

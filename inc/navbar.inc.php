@@ -1,4 +1,8 @@
 <!-- navbar.php -->
+<?php
+session_start();
+?>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="/home">
@@ -15,25 +19,62 @@
                 <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="/listings">Listings</a></li>
                 <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
+                <?php
+                    if(isset($_SESSION["admin"])){
+                        echo"
+                        <li class=nav-item>
+                            <a class=nav-link href=/admin>
+                                Admin
+                            </a>
+                        </li>";
+                    }
+                ?>
             </ul>
 
             <!-- Right-aligned icons -->
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/checkout">
-                        <i class="bi bi-cart fs-3"></i> <!-- Checkout Icon -->
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">
-                        <i class="bi bi-box-arrow-in-right fs-3"></i> <!-- Login Icon -->
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/register">
-                        <i class="bi bi-person-plus fs-3"></i> <!-- Sign Up Icon -->
-                    </a>
-                </li>
+                <?php 
+                if(!isset($_SESSION["login"])){
+                    echo "<li class=nav-item>
+                        <a class='nav-link' href=/login>
+                            <i class='bi bi-door-open fs-3'></i> <!-- Login Icon -->
+                        </a>
+                    </li>
+                    <li class='nav-item'>
+                        <a class=nav-link href=/register>
+                            <i class='bi bi-person-plus fs-3'></i>
+                        </a>
+                    </li>";
+                }
+                else{
+                    echo"
+                    <li class=nav-item>
+                        <a class=nav-link href=/profile>
+                            <i class='bi bi-person-circle fs-3'></i>
+                        </a>
+                    </li>
+                    <li class=nav-item>
+                        <a class=nav-link href=/logout>
+                            <i class='bi bi-box-arrow-in-right fs-3'></i>
+                        </a>
+                    </li>";
+                }
+                ?>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="/checkout">
+                            <i class="bi bi-cart fs-3"></i>  Checkout Icon 
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">
+                            <i class="bi bi-box-arrow-in-right fs-3"></i>  Login Icon 
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">
+                            <i class="bi bi-person-plus fs-3"></i>  Sign Up Icon 
+                        </a>
+                    </li> -->
             </ul>
         </div>
     </div>
