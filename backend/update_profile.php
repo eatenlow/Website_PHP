@@ -13,7 +13,11 @@
     <body>
         <main class="container">
         <?php
-
+        if(!isset($_POST['submit'])){
+            echo 'Try accessing this page by pressing submit button'. '<br />';
+            echo "<a href='form.html'>Goto Form Page</a>";
+            exit();
+        }
         if($_SERVER["REQUEST_METHOD"] === "POST"){
             $email = $errorMsg = "";
             $success = true;
@@ -33,6 +37,11 @@
     
             if (empty($_POST["lname"])){
                 $errorMsg .= "Last name is required.<br>";
+                $success = false;
+            }
+
+            if (empty($_POST["dob"])){
+                $errorMsg .= "Date of Birth is required.<br>";
                 $success = false;
             }
     
@@ -75,6 +84,7 @@
             echo "<h4>Get request not allowed</h4>";
             echo "<p>go away</p>";
         }
+        
 
         /*
         * Helper function that checks input for malicious or unwanted content.

@@ -1,12 +1,13 @@
 <!-- navbar.php -->
 <?php
 session_start();
+
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="/home">
-            <img src="images/logo3.png" alt="PetAdopt Logo" height="50">
+            <?php echo '<img src='.dirname(__DIR__).'/images/logo3.png alt="PetAdopt Logo" height="50">' ?>
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -20,7 +21,7 @@ session_start();
                 <li class="nav-item"><a class="nav-link" href="/listings">Listings</a></li>
                 <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
                 <?php
-                    if(isset($_SESSION["admin"])){
+                    if(isset($_SESSION["admin"]) && isset($_SESSION["login"])){
                         echo"
                         <li class=nav-item>
                             <a class=nav-link href=/editSite>

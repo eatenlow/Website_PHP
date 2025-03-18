@@ -35,6 +35,10 @@ switch ($request) {
         require __DIR__ . $viewDir . 'editList.php';
         break;
     
+    case '/addList':
+        require __DIR__ . $viewDir . 'addList.php';
+        break;
+        
     case '/listings':
         require __DIR__ . $viewDir . 'listings.php';
         break;

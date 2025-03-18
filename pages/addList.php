@@ -12,29 +12,29 @@
             echo '<h1><strong>Edit Listing ' . $_GET['id'] . '</strong></h1>';
             if(!isset($_SESSION["login"]) || ($_SESSION["admin"] != '1')){
                 header("Location: /a");
-            } 
+            }
+            echo $_SESSION;
             function getListing(){
                 global $name, $type, $breed, $age, $cost, $gender, $desc, $image, $errorMsg, $success;
-                require_once 'backend/db.php';
                 // Create database connection.
-                // $config = parse_ini_file('/var/www/private/db-config.ini');
-                // if (!$config){
-                //     $errorMsg = "Failed to read database config file.";
-                //     $success = false;
-                // }
-                // else{
-                //     $conn = new mysqli(
-                //     $config['servername'],
-                //     $config['username'],
-                //     $config['password'],
-                //     $config['dbname']
-                //     );
-                //     // Check connection
-                //     if ($conn->connect_error){
-                //         $errorMsg = "Connection failed: " . $conn->connect_error;
-                //         $success = false;
-                //     }
-                //     else{
+                $config = parse_ini_file('/var/www/private/db-config.ini');
+                if (!$config){
+                    $errorMsg = "Failed to read database config file.";
+                    $success = false;
+                }
+                else{
+                    $conn = new mysqli(
+                    $config['servername'],
+                    $config['username'],
+                    $config['password'],
+                    $config['dbname']
+                    );
+                    // Check connection
+                    if ($conn->connect_error){
+                        $errorMsg = "Connection failed: " . $conn->connect_error;
+                        $success = false;
+                    }
+                    else{
                         $petID = $_GET['id'];
                         $_SESSION['edit_pet_id'] = $petID;
                         // Prepare the statement:
@@ -56,17 +56,18 @@
                         }
                         else{
                             // invalid listing ID redirect
-                            header("Location: /a");
+                            //header("Location: /a");
                             $success = false;
                         }
                     $stmt->close();
-                    // }
+                    }
                 $conn->close();
                 }
-            // }
+            }
 
             getListing();
         ?>
+            <a href=/addList><button class='btn btn-success'>Add new Listing</button></a>
             <form action="../backend/update_listing.php" method="post" enctype="multipart/form-data">
                 <?php 
                     echo '
@@ -74,7 +75,6 @@
                     <br><br>
                     <form-label for="image">New Pet Image:</form-label>
                     <input type="file" name="image" id="image">
-                    <input type="hidden" name="image" value='.$image.'>
                     <br><br>
                     ';
                 ?>

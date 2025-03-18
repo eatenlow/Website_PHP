@@ -48,13 +48,13 @@
 </head>
 
 <body>
-    <?php include 'inc/nav.inc.php'; ?>
+    <?php include 'inc/navbar.inc.php'; ?>
     <!-- Hero Section -->
     <header class="hero-section text-center text-black">
         <div class="container">
             <h1>Find Your New Best Friend</h1>
             <p>Adopt a pet and give them a loving home today.</p>
-            <a href="listings.php" class="btn btn-primary">View Available Pets</a>
+            <a href="/listings" class="btn btn-primary">View Available Pets</a>
         </div>
     </header>
 
@@ -76,7 +76,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Buddy</h5>
                         <p class="card-text">A playful golden retriever looking for a home.</p>
-                        <a href="listings.php" class="btn btn-success">Adopt Now</a>
+                        <a href="/listings" class="btn btn-success">Adopt Now</a>
                     </div>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Mittens</h5>
                         <p class="card-text">A cute and cuddly kitten waiting for a family.</p>
-                        <a href="listings.php" class="btn btn-success">Adopt Now</a>
+                        <a href="/listings" class="btn btn-success">Adopt Now</a>
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Charlie</h5>
                         <p class="card-text">An energetic beagle who loves to play.</p>
-                        <a href="listings.php" class="btn btn-success">Adopt Now</a>
+                        <a href="/listings" class="btn btn-success">Adopt Now</a>
                     </div>
                 </div>
             </div>
@@ -177,11 +177,6 @@
             </button>
         </div>
     </section>
-
-
-
-
-
 
     <?php include 'inc/footer.inc.php'; ?>
 

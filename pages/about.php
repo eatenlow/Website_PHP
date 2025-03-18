@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <?php include 'inc/nav.inc.php'; ?>
+    <?php include 'inc/navbar.inc.php'; ?>
 
     <!-- Introduction -->
     <section class="container my-5">
