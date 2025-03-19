@@ -157,7 +157,7 @@
                                 </div>
                                 <div class="card-back">
                                     <p><?= htmlspecialchars($event["details"]) ?></p>
-                                    <a href="<?= htmlspecialchars($event["link"]) ?>" class="btn btn-outline-light">View Details</a>
+                                    <a href="<?= htmlspecialchars($event["link"]) ?>" class="btn btn-outline-light">Register</a>
                                 </div>
                             </div>
                         </div>

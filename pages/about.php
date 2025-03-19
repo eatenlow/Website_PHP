@@ -99,7 +99,7 @@
                 <h4><i class="bi bi-envelope"></i> Email</h4>
                 <p>contact@petadopt.com</p>
                 <h4><i class="bi bi-telephone"></i> Phone</h4>
-                <p>+65 1234 5678</p>
+                <p>+65 9123 4567</p>
             </div>
             <div class="col-md-6">
                 <h4><i class="bi bi-instagram"></i> Social Media</h4>
