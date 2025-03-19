@@ -37,7 +37,7 @@
                     <th>Pet Name</th>
                     <th>Pet type</th>
                     <th>Breed</th>
-                    <th>Birthdate</th>
+                    <th>Age</th>
                     <th>Gender</th>
                     <th>Adoption Cost</th>
                 </tr>

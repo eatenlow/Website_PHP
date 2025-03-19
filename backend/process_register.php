@@ -1,15 +1,13 @@
 
 <html>
     <head>
-        <title>World of Pets</title>
         <?php
             include "inc/head.inc.php";
         ?>
     </head>
     <body>
-        <?php
-        include "inc/nav.inc.php";
-        ?>
+        <?php include 'inc/navbar.inc.php'; ?>
+
         <main class="container">
         <?php
 
@@ -66,7 +64,7 @@
                 // var_dump($pwd_hashed);
                 echo"</p>";
                 
-                echo "<a action=/home><button type=submit class='btn btn-success'>Log in</button></a>";
+                echo "<a action=/login><button type=submit class='btn btn-success'>Log in</button></a>";
             }
             else{
                 echo "<h4><strong>The following input errors were detected:</strong></h4>";
@@ -135,11 +133,9 @@
                         $success = false;
                         debug_to_console($errorMsg);
                     }
-                    debug_to_console($stmt->errno);
                     $stmt->close();
                 }
             $conn->close();
-            debug_to_console("Done");
             }
         }
         ?>
