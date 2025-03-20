@@ -61,21 +61,42 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+// Function to register event listeners
 function registerEventListeners() {
+    // Get all elements with the 'img-thumbnail' class
+    const thumbnails = document.getElementsByClassName("img-thumbnail");
 
-    var photos = document.getElementsByClassName("img-thumbnail");
+    // Loop through each thumbnail and attach a click event listener
+    for (let i = 0; i < thumbnails.length; i++) {
+        thumbnails[i].addEventListener("click", function () {
+            // Check if an existing popup exists and remove it
+            const existingPopup = document.querySelector(".img-popup");
+            if (existingPopup) {
+                existingPopup.remove();
+                return; // Exit if we're closing the existing popup
+            }
 
-    if (photos !== null && photos.length > 0) {
+            // Dynamically create the popup container
+            const popup = document.createElement("div");
+            popup.setAttribute("class", "img-popup"); // Add the 'img-popup' class
 
-        for (var i = 0; i < photos.length; i++) {
-            var photo = photos[i];
-            photo.addEventListener("click", togglePhoto);
-        }
+            // Dynamically create the image element
+            const img = document.createElement("img");
+            img.setAttribute("src", this.src); // Set the image source to the clicked thumbnail's source
+            img.setAttribute("alt", "Popup Image"); // Add an alt attribute for accessibility
+
+            // Add the image to the popup container
+            popup.appendChild(img);
+
+            // Insert the popup element into the DOM
+            document.body.appendChild(popup);
+
+            // Close the popup when it is clicked
+            popup.addEventListener("click", function () {
+                popup.remove();
+            });
+        });
     }
-    else {
-        console.log("No images found.");
-    }
-
 }
 
 function togglePhoto(event) {
