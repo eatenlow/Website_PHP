@@ -145,32 +145,21 @@
 
         <div id="eventsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
             <div class="carousel-inner">
-                <?php 
-                // foreach ($events as $index => $event): 
-                    $event = array_chunk($events, 3); // 3 items per slide
-                    foreach ($event as $index => $event):
-                    ?>
-                    <!-- <div class="col-md-4"> -->
-                    <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                        <div class="row">
-                        <?php foreach($event as $item): ?>
-                            <div class="col-md-4">
-                                <div class="event-card">
-                                <div class="card-inner">
-                                    <div class="card-front">
-                                        <h3><?= htmlspecialchars($item["title"]) ?></h3>
-                                        <p><?= htmlspecialchars($item["date"]) ?></p>
-                                        <p><?= htmlspecialchars($item["time"]) ?></p>
-                                        <p><?= htmlspecialchars($item["venue"]) ?></p>
-                                    </div>
-                                    <div class="card-back">
-                                        <p><?= htmlspecialchars($item["details"]) ?></p>
-                                        <a href="<?= htmlspecialchars($item["link"]) ?>" class="btn btn-outline-light">Register</a>
-                                    </div>
+                <?php foreach ($events as $index => $event): ?>
+                    <div class="col-md-4">
+                        <div class="event-card">
+                            <div class="card-inner">
+                                <div class="card-front">
+                                    <h3><?= htmlspecialchars($event["title"]) ?></h3>
+                                    <p><?= htmlspecialchars($event["date"]) ?></p>
+                                    <p><?= htmlspecialchars($event["time"]) ?></p>
+                                    <p><?= htmlspecialchars($event["venue"]) ?></p>
                                 </div>
+                                <div class="card-back">
+                                    <p><?= htmlspecialchars($event["details"]) ?></p>
+                                    <a href="<?= htmlspecialchars($event["link"]) ?>" class="btn btn-outline-light">View Details</a>
                                 </div>
                             </div>
-                            <?php endforeach; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
