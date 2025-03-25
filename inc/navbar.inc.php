@@ -4,10 +4,10 @@ session_start();
 
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container">
         <a class="navbar-brand" href="/home">
-            <?php echo '<img src='.dirname(__DIR__).'/images/logo3.png alt="PetAdopt Logo" height="50">' ?>
+            <?php echo '<img src=' . dirname(__DIR__) . '/images/logo3.png alt="PetAdopt Logo" height="50">' ?>
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -21,8 +21,8 @@ session_start();
                 <li class="nav-item"><a class="nav-link" href="/listings">Listings</a></li>
                 <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
                 <?php
-                    if(isset($_SESSION["admin"]) && isset($_SESSION["login"])){
-                        echo"
+                if (isset($_SESSION["admin"]) && isset($_SESSION["login"])) {
+                    echo "
                         <li class=nav-item>
                             <a class=nav-link href=/editSite>
                                 Edit Site
@@ -33,14 +33,14 @@ session_start();
                                 Edit Listings
                             </a>
                         </li>";
-                    }
+                }
                 ?>
             </ul>
 
             <!-- Right-aligned icons -->
             <ul class="navbar-nav">
-                <?php 
-                if(!isset($_SESSION["login"])){
+                <?php
+                if (!isset($_SESSION["login"])) {
                     echo "<li class=nav-item>
                         <a class='nav-link' href=/login>
                             <i class='bi bi-door-open fs-3'></i> <!-- Login Icon -->
@@ -51,9 +51,8 @@ session_start();
                             <i class='bi bi-person-plus fs-3'></i>
                         </a>
                     </li>";
-                }
-                else{
-                    echo"
+                } else {
+                    echo "
                     <li class=nav-item>
                         <a class=nav-link href=/profile>
                             <i class='bi bi-person-circle fs-3'></i>
@@ -66,7 +65,7 @@ session_start();
                     </li>";
                 }
                 ?>
-                    <!-- <li class="nav-item">
+                <!-- <li class="nav-item">
                         <a class="nav-link" href="/checkout">
                             <i class="bi bi-cart fs-3"></i>  Checkout Icon 
                         </a>
