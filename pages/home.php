@@ -146,18 +146,20 @@
         <div id="eventsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
             <div class="carousel-inner">
                 <?php foreach ($events as $index => $event): ?>
-                    <div class="col-md-4">
-                        <div class="event-card">
-                            <div class="card-inner">
-                                <div class="card-front">
-                                    <h3><?= htmlspecialchars($event["title"]) ?></h3>
-                                    <p><?= htmlspecialchars($event["date"]) ?></p>
-                                    <p><?= htmlspecialchars($event["time"]) ?></p>
-                                    <p><?= htmlspecialchars($event["venue"]) ?></p>
-                                </div>
-                                <div class="card-back">
-                                    <p><?= htmlspecialchars($event["details"]) ?></p>
-                                    <a href="<?= htmlspecialchars($event["link"]) ?>" class="btn btn-outline-light">View Details</a>
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <div class="event-card">
+                                <div class="card-inner">
+                                    <div class="card-front">
+                                        <h3><?= htmlspecialchars($event["title"]) ?></h3>
+                                        <p><?= htmlspecialchars($event["date"]) ?></p>
+                                        <p><?= htmlspecialchars($event["time"]) ?></p>
+                                        <p><?= htmlspecialchars($event["venue"]) ?></p>
+                                    </div>
+                                    <div class="card-back">
+                                        <p><?= htmlspecialchars($event["details"]) ?></p>
+                                        <a href="<?= htmlspecialchars($event["link"]) ?>" class="btn btn-outline-light">View Details</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
