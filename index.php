@@ -27,6 +27,10 @@ switch ($request) {
         require __DIR__ . $viewDir . 'logout.php';
         break;
     
+    case '/manageUser':
+        require __DIR__ . $viewDir . 'manageUser.php'; 
+        break;
+
     case '/manageList':
         require __DIR__ . $viewDir . 'manageList.php';
         break;

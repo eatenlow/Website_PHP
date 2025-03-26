@@ -87,6 +87,7 @@
 /* Small Screens: 1 card per slide */
 @media (max-width: 767px) {
     .carousel-item .col-md-4 {
+        display: block;
         flex: 0 0 100%;
         max-width: 100%;
     }
@@ -130,6 +131,8 @@
     text-align: center;
     color: white;
 }
+
+
 
 /* Medium Screens - Adjust Image & Caption */
 @media (max-width: 992px) {
@@ -204,7 +207,7 @@
 }
 
 .bi {
-    color: #f76c6c;
+    /* color: #f76c6c; */
     margin-bottom: 10px;
 }
 

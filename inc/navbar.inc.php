@@ -32,6 +32,11 @@ session_start();
                             <a class=nav-link href=/manageList>
                                 Edit Listings
                             </a>
+                        </li>
+                        <li class=nav-item>
+                            <a class=nav-link href=/manageUser>
+                                Edit Users
+                            </a>
                         </li>";
                 }
                 ?>
