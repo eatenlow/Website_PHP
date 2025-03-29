@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/nouislider@14.6.3/distribute/nouislider.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@14.6.3/distribute/nouislider.min.css">
-    <script src="js/main.js"></script>
+    <script src="JS/main.js"></script>
 </head>
 
 <body>
@@ -269,6 +269,32 @@
                             
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
+                                    $plainDescription = htmlspecialchars($row['description']);
+                                    $truncatedText = substr($plainDescription, 0, 110);
+                                    $showMoreLink = '<span class="show-more-text" data-id="'.$row['pet_ID'].'">(show more)</span>';
+
+                                    if (strlen($plainDescription) > 110) {
+                                        $displayText = nl2br($truncatedText) . '... ' . $showMoreLink;
+                                    } else {
+                                        $displayText = nl2br($plainDescription);
+                                    }
+
+                                    echo '
+                                    <div class="description-popup" id="popup-'.$row['pet_ID'].'">
+                                    <div class="popup-content">
+                                    <button class="close-popup">&times;</button>
+                                    <img src="' . dirname(__DIR__).'/listingImages/'.htmlspecialchars($row['image']) . '" class="popup-card-img" alt="' . htmlspecialchars($row['pet_name']) . '">
+                                    <h3>'.htmlspecialchars($row['pet_name']).'</h3>
+                                    <p class="popup-card-text"><strong>Breed:</strong> ' . htmlspecialchars($row['breed']) . '</p>
+                                    <p class="popup-card-text"><strong>Type:</strong> ' . htmlspecialchars($row['pet_type']) . '</p>
+                                    <p class="popup-card-text"><strong>Age:</strong> ' . htmlspecialchars($row['age']) . '</p>
+                                    <p class="popup-card-text"><strong>Gender:</strong> ' . htmlspecialchars($row['gender']) . '</p>
+                                    <p class="popup-card-text"><strong>Adoption Cost:</strong> $' . htmlspecialchars($row['adopt_cost']) . '</p>
+                                    <p>Full description: '.nl2br($plainDescription).'</p>
+                                    <a href="/pet/' . htmlspecialchars($row['pet_ID']) . '" class="btn btn-primary">Adopt Now</a>
+                                    </div>
+                                    </div>';
+
                                     echo '<div class="col-md-4 mb-4">';
                                     echo '<div class="card">';
                                     echo '<img src="' . dirname(__DIR__).'/listingImages/'.htmlspecialchars($row['image']) . '" class="card-img-top" alt="' . htmlspecialchars($row['pet_name']) . '">';
@@ -280,12 +306,32 @@
                                     echo '<strong>Age:</strong> ' . htmlspecialchars($row['age']) . '<br>';
                                     echo '<strong>Gender:</strong> ' . htmlspecialchars($row['gender']) . '<br>';
                                     echo '<strong>Adoption Cost:</strong> $' . htmlspecialchars($row['adopt_cost']) . '<br>';
-                                    echo '<strong>Description:</strong> ' . htmlspecialchars($row['description']);
+                                    echo '<strong>Description:</strong> ' . nl2br($truncatedText) . '... ' . $showMoreLink;
                                     echo '</p>';
-                                    echo '<a href="/pet/' . htmlspecialchars($row['pet_id']) . '" class="btn btn-primary">Adopt Now</a>';
+                                    echo '<a href="/pet/' . htmlspecialchars($row['pet_ID']) . '" class="btn btn-primary">Adopt Now</a>';
                                     echo '</div>';
                                     echo '</div>';
                                     echo '</div>';
+                                    // Add popup HTML if description was truncated
+                                    if (strlen($plainDescription) > 110) {
+                                        echo '
+                                        <div class="description-popup" id="popup-'.$row['pet_ID'].'">
+                                        <div class="popup-content">
+                                        <button class="close-popup">&times;</button>
+                                        <img src="' . dirname(__DIR__).'/listingImages/'.htmlspecialchars($row['image']) . '" class="popup-card-img" alt="' . htmlspecialchars($row['pet_name']) . '">
+                                        <div class="popup-card-body">
+                                        <h3 class="popup-card-title">' . htmlspecialchars($row['pet_name']) . '</h3>
+                                        <p class="popup-card-text"><strong>Breed:</strong> ' . htmlspecialchars($row['breed']) . '</p>
+                                        <p class="popup-card-text"><strong>Type:</strong> ' . htmlspecialchars($row['pet_type']) . '</p>
+                                        <p class="popup-card-text"><strong>Age:</strong> ' . htmlspecialchars($row['age']) . '</p>
+                                        <p class="popup-card-text"><strong>Gender:</strong> ' . htmlspecialchars($row['gender']) . '</p>
+                                        <p class="popup-card-text"><strong>Adoption Cost:</strong> $' . htmlspecialchars($row['adopt_cost']) . '</p>
+                                        <p class="popup-card-text"><strong>Description:</strong> ' . nl2br(htmlspecialchars($row['description'])) . '</p>
+                                        <a href="/pet/' . htmlspecialchars($row['pet_ID']) . '" class="btn btn-primary">Adopt Now</a>
+                                    </div>
+                                </div>
+                            </div>';
+                                    }
                                 }
                             } else {
                                 echo '<div class="col-12"><p>No pets match your filter criteria. Please try different filters.</p></div>';
