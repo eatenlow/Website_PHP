@@ -55,6 +55,10 @@ switch ($request) {
         require __DIR__ . $viewDir . 'checkout.php';
         break;
 
+    case '/event':
+        require __DIR__ . $viewDir . 'event.php';
+        break;
+
     case '/events':
         require __DIR__ . $viewDir . 'events.php';
         break;
