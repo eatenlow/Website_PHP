@@ -31,17 +31,19 @@
             <a href=/addList class='btn btn-success'>Add new Listing</a>
             
             <?php if ($result->num_rows > 0): ?>
-            <table style="width:100%;">
-                <tr>
-                    <th>Pet ID</th>
-                    <th>Pet Name</th>
-                    <th>Pet type</th>
-                    <th>Breed</th>
-                    <th>Age</th>
-                    <th>Gender</th>
-                    <th>Adoption Cost</th>
-                </tr>
-
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Pet ID</th>
+                        <th>Pet Name</th>
+                        <th>Pet type</th>
+                        <th>Breed</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Adoption Cost</th>
+                    </tr>
+                </thead>
+            <tbody>
             
             <?php while($row = $result->fetch_assoc()): ?>
                 <tr>
@@ -61,7 +63,8 @@
                 <tr>
                     <td colspan="6">No listings found.</td>
                 </tr>
-            <?php endif; ?>
+                <?php endif; ?>
+                </tbody>
             </table>
         </main>
         <?php
