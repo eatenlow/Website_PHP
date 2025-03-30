@@ -20,6 +20,7 @@ session_start();
                 <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="/listings">Listings</a></li>
                 <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="/event">Events</a></li>
                 <?php
                 if (isset($_SESSION["admin"]) && isset($_SESSION["login"])) {
                     echo "

@@ -39,12 +39,12 @@ function fetchUnregisteredEvents($user_id)
         $resultObject = new stdClass();
         $resultObject->event_id = $event_id;
         $resultObject->event_name = $event_name;
+        $resultObject->event_date = $event_date;
+        $resultObject->event_time = $event_time;
+        $resultObject->event_venue = $event_venue;
+        $resultObject->event_details = $event_details;
         $events[] = $resultObject;
     }
-    // $result = $stmt->get_result();
-    // while (($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) !== false) {
-    //     $events[] = $row;
-    // }
     $stmt->close();
     // $conn->close();
     return $events;

@@ -71,9 +71,6 @@ switch ($request) {
         require __DIR__ . $viewDir . 'event.php';
         break;
 
-    case '/events':
-        require __DIR__ . $viewDir . 'events.php';
-        break;
         
     default:
         http_response_code(404);

@@ -63,8 +63,8 @@
                 // echo "<p>pass hash: ";
                 // var_dump($pwd_hashed);
                 echo"</p>";
-                
-                echo "<a action=/login><button type=submit class='btn btn-success'>Log in</button></a>";
+                header("Location: /login");
+                // echo "<a action=/login><button type=submit class='btn btn-success'>Log in</button></a>";
             }
             else{
                 echo "<h4><strong>The following input errors were detected:</strong></h4>";

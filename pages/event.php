@@ -16,7 +16,8 @@
 
 <body>
     <?php include 'inc/navbar.inc.php'; ?>
-    <h2>Event Registration</h2>
+    <main class="container-lg w-60 w-md-80 w-sm-90 w-100 mx-auto">
+    <h2><strong>Event Registration</strong></h2>
     
     <?php
     require 'backend/event_info_retrieve.php';
@@ -28,7 +29,6 @@
     }
     else{
         $user_id = $_SESSION['id'];
-
         // // Handle form actions
         handleEventAction($user_id);
     
@@ -40,36 +40,66 @@
 
     ?>
     <!-- Registered Events -->
+     &nbsp;
     <h3>My Registered Events</h3>
-    <ul>
+    <table style="width:70%;">
         <?php if (empty($registered_events)): ?>
-            <li>You have not registered for any events.</li>
+            <p>You have not registered for any events.</p>
         <?php else: ?>
             <?php foreach ($registered_events as $event): ?>
-                <li>
-                    <?= htmlspecialchars($event->event_name) ?>
+                <tr>
+                    <td class="col-1"><?= htmlspecialchars($event->event_name) ?></td>
                     <form method="POST" action="/event" style="display:inline;">
                         <input type="hidden" name="event_id" value="<?= $event->event_id ?>">
                         <input type="hidden" name="action" value="cancel">
-                        <button type="submit">Cancel</button>
+                    <td class="col-1"><button type="submit" class="btn btn-danger">Cancel</button></td>
                     </form>
-                </li>
+                </tr>
             <?php endforeach; ?>
         <?php endif; ?>
-    </ul>
+    </table>
 
     <!-- Register for New Events -->
     <h3>Register for an Event</h3>
-    <form method="POST" action="/event">
-        <label for="event">Select an Event:</label>
-        <select name="event_id" id="event">
-            <?php foreach ($events as $event): ?>
+    <?php if($events === []): ?>
+        <p>There are no other events available...</p>
+    <?php else: ?>
+    <!-- <form method="POST" action="/event"> -->
+        <p>Select an Event:</p>
+        <!-- <select name="event_id" id="event">
+            <?php //foreach ($events as $event): ?>
                 <option value="<?= $event->event_id ?>"><?= $event->event_name ?></option>
-            <?php endforeach; ?>
-        </select>
-        <input type="hidden" name="action" value="register">
-        <button type="submit">Register</button>
-    </form>
+            <?php //endforeach; ?>
+        </select> -->
+        <div class="row justify-content-left">
+        <?php foreach($events as $event): ?>
+            <div class="col-md-4">
+                <div class="event-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <h3><?= $event->event_name ?></h3>
+                            <p><?= $event->event_date ?></p>
+                            <p><?= $event->event_time ?></p>
+                            <p><?= $event->event_venue ?></p>
+                        </div>
+                        <div class="card-back">
+                            <p><?= $event->event_details ?></p>    
+                            <form method="POST" action=/event>
+                                <input type="hidden" name="event_id" id=event value="<?= $event->event_id?>">
+                                <input type="hidden" name="action" value="register">
+                                <button type=submit class="btn btn-outline-light">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+        </div>
+        <!-- <input type="hidden" name="action" value="register">
+        <button type="submit" class="btn btn-success">Register</button> -->
+    <!-- </form> -->
+    <?php endif; ?>
+    </main>
 </body>
 
 </html>
