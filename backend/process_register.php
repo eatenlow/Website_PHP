@@ -1,4 +1,6 @@
-
+<?php
+chdir("/var/www/html");
+?>
 <html>
     <head>
         <?php
@@ -10,7 +12,7 @@
 
         <main class="container">
         <?php
-
+        
         if($_SERVER["REQUEST_METHOD"] === "POST"){
             $email = $errorMsg = "";
             $success = true;
@@ -51,8 +53,11 @@
             $address = sanitize_input($_POST["address"]);
             $dob2 = strtotime($_POST["dob"]);
             $dob = date('Y-m-d', $dob2);
-            saveMemberToDB();
-    
+            var_dump([$fname, $lname, $email, $address, $dob, $pwd_hashed]);
+            if ($success){
+                saveMemberToDB($fname, $lname, $email, $address, $dob, $pwd_hashed);
+            }
+            
             if ($success){
                 echo "<h4>Registration successful!</h4>";
                 echo "<p>Email: " . $email . "</p>";
@@ -69,7 +74,7 @@
             else{
                 echo "<h4><strong>The following input errors were detected:</strong></h4>";
                 echo "<p>" . $errorMsg . "</p>";
-                echo "<a action=/register><button class='btn btn-danger'>Return to Sign Up</button></a>";
+                echo "<a href=/register><button class='btn btn-danger'>Return to Sign Up</button></a>";
             }
         }
         else{
@@ -98,33 +103,36 @@
         /*
         * Helper function to write the member data to the database.
         */
-        function saveMemberToDB(){
+        function saveMemberToDB($fname, $lname, $email, $address, $dob, $pwd_hashed){
             // Create database connection.
-            global $fname, $lname, $email, $address, $dob, $pwd_hashed, $errorMsg, $success;
-            $config = parse_ini_file('/var/www/private/db-config.ini');
-            if (!$config){
-                $errorMsg = "Failed to read database config file.";
-                debug_to_console($errorMsg);
-                $success = false;
-            }
-            else{
-                $conn = new mysqli(
-                $config['servername'],
-                $config['username'],
-                $config['password'],
-                $config['dbname']
-                );
-                // Check connection
-                if ($conn->connect_error){
-                    $errorMsg = "Connection failed: " . $conn->connect_error;
-                    $success = false;
-                    debug_to_console($errorMsg);
-                }
-                else{
+            global  $errorMsg, $success;
+            require_once 'db.php';
+
+            // $config = parse_ini_file('/var/www/private/db-config.ini');
+            // if (!$config){
+            //     $errorMsg = "Failed to read database config file.";
+            //     debug_to_console($errorMsg);
+            //     $success = false;
+            // }
+            // else{
+            //     $conn = new mysqli(
+            //     $config['servername'],
+            //     $config['username'],
+            //     $config['password'],
+            //     $config['dbname']
+            //     );
+            //     // Check connection
+            //     if ($conn->connect_error){
+            //         $errorMsg = "Connection failed: " . $conn->connect_error;
+            //         $success = false;
+            //         debug_to_console($errorMsg);
+            //     }
+            //     else{
                     // Prepare the statement:
                     $stmt = $conn->prepare("INSERT INTO world_of_pets_members
                     (fname, lname, email, password, address, dateofbirth) VALUES (?, ?, ?, ?, ?, ?)");
                     // Bind & execute the query statement:
+                    echo "LMAO";
                     $stmt->bind_param("ssssss", $fname, $lname, $email, $pwd_hashed, $address, $dob);
 
                     if (!$stmt->execute()){
@@ -133,10 +141,11 @@
                         $success = false;
                         debug_to_console($errorMsg);
                     }
+                    echo "LMAO";
                     $stmt->close();
-                }
+                // }
             $conn->close();
-            }
+            // }
         }
         ?>
 

@@ -18,29 +18,30 @@
     <?php include 'inc/navbar.inc.php'; ?>
     <main class="container-lg w-60 w-md-80 w-sm-90 w-100 mx-auto">
     <h2><strong>Event Registration</strong></h2>
-    
     <?php
     require 'backend/event_info_retrieve.php';
-    require 'backend/event_register.php';
 
     if (!isset($_SESSION['id'])) {
         echo "<p> Please <a href='/login'>log in</a>to register for events.</p>";
-        exit();
+        $events = fetchAllEvents();
+        // exit();
     }
     else{
+        require 'backend/event_register.php';
         $user_id = $_SESSION['id'];
+
         // // Handle form actions
         handleEventAction($user_id);
-    
+
         // Get event data
-        // $events = fetchAllEvents();
         $events = fetchUnregisteredEvents($user_id);
         $registered_events = fetchUserRegistrations($user_id);
     }
 
     ?>
     <!-- Registered Events -->
-     &nbsp;
+    &nbsp;
+    <?php if (isset($_SESSION['id'])): ?>
     <h3>My Registered Events</h3>
     <table style="width:70%;">
         <?php if (empty($registered_events)): ?>
@@ -58,6 +59,7 @@
             <?php endforeach; ?>
         <?php endif; ?>
     </table>
+    <?php endif; ?>
 
     <!-- Register for New Events -->
     <h3>Register for an Event</h3>

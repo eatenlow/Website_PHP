@@ -1,4 +1,6 @@
-
+<?php
+chdir("/var/www/html");
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -13,12 +15,12 @@
     <body>
         <main class="container">
         <?php
-        if(!isset($_POST['submit'])){
-            echo 'Try accessing this page by pressing submit button'. '<br />';
-            echo "<a href='form.html'>Goto Form Page</a>";
-            exit();
-        }
         if($_SERVER["REQUEST_METHOD"] === "POST"){
+            if(!isset($_POST['submit'])){
+                echo 'Try accessing this page by pressing submit button'. '<br />';
+                echo "<a href='/profile'>Goto Form Page</a>";
+                exit();
+            }
             $email = $errorMsg = "";
             $success = true;
             if (empty($_POST["email"])){
@@ -58,9 +60,10 @@
             $address = sanitize_input($_POST["address"]);
             $dob2 = strtotime($_POST["dob"]);
             $dob = date('Y-m-d', $dob2);
-            updateProfile();
+
     
             if ($success){
+                updateProfile($fname, $lname, $email, $address, $dob, $pwd_hashed);
                 echo "<h4>Update successful!</h4>";
                 echo "<p>Email: " . $email . "</p>";
                 echo "<p>First Name: " . $fname . "</p>";
@@ -71,13 +74,13 @@
                 var_dump($pwd_hashed);
                 echo"</p>";
                 
-                echo "<a action=/home><button type=submit class='btn btn-success'>Log in</button></a>";
+                echo "<a href=/home><button type=submit class='btn btn-success'>Log in</button></a>";
                 unset($_SESSION['pw_hash']); 
             }
             else{
                 echo "<h4><strong>The following input errors were detected:</strong></h4>";
                 echo "<p>" . $errorMsg . "</p>";
-                echo "<a action=/home><button class='btn btn-danger'>Return to Home</button></a>";
+                echo "<a href=/home><button class='btn btn-danger'>Return to Home</button></a>";
             }
         }
         else{
@@ -107,48 +110,49 @@
         /*
         * Helper function to write the member data to the database.
         */
-        function updateProfile(){
+        function updateProfile($fname, $lname, $email, $address, $dob, $pwd_hashed){
             $userID = $_SESSION['id'];
-            // Create database connection.
-            global $fname, $lname, $email, $address, $dob, $pwd_hashed, $errorMsg, $success;
-            $config = parse_ini_file('/var/www/private/db-config.ini');
-            if (!$config){
-                $errorMsg = "Failed to read database config file.";
-                debug_to_console($errorMsg);
-                $success = false;
-            }
-            else{
-                $conn = new mysqli(
-                $config['servername'],
-                $config['username'],
-                $config['password'],
-                $config['dbname']
-                );
-                // Check connection
-                if ($conn->connect_error){
-                    $errorMsg = "Connection failed: " . $conn->connect_error;
-                    $success = false;
-                    debug_to_console($errorMsg);
-                }
-                else{
-                    // Prepare the statement:
-                    $stmt = $conn->prepare("UPDATE world_of_pets_members SET
-                    fname=?, lname=?, email=?, password=?, address=?, dateofbirth=? WHERE member_id=?");
-                    // Bind & execute the query statement:
-                    $stmt->bind_param("ssssssi", $fname, $lname, $email, $pwd_hashed, $address, $dob, $userID);
+            require_once 'backend/db.php';
 
-                    if (!$stmt->execute()){
-                        $errorMsg = "Execute failed: (" . $stmt->errno . ") " .
-                        $stmt->error;
-                        $success = false;
-                        debug_to_console($errorMsg);
-                    }
-                    debug_to_console($stmt->errno);
-                    $stmt->close();
-                }
-            $conn->close();
-            debug_to_console("Done");
+            // // Create database connection.
+            // global  $errorMsg, $success;
+            // $config = parse_ini_file('/var/www/private/db-config.ini');
+            // if (!$config){
+            //     $errorMsg = "Failed to read database config file.";
+            //     debug_to_console($errorMsg);
+            //     $success = false;
+            // }
+            // else{
+            //     $conn = new mysqli(
+            //     $config['servername'],
+            //     $config['username'],
+            //     $config['password'],
+            //     $config['dbname']
+            //     );
+            //     // Check connection
+            //     if ($conn->connect_error){
+            //         $errorMsg = "Connection failed: " . $conn->connect_error;
+            //         $success = false;
+            //         debug_to_console($errorMsg);
+            //     }
+            //     else{
+                    // Prepare the statement:
+            $stmt = $conn->prepare("UPDATE world_of_pets_members SET
+            fname=?, lname=?, email=?, password=?, address=?, dateofbirth=? WHERE member_id=?");
+            // Bind & execute the query statement:
+            $stmt->bind_param("ssssssi", $fname, $lname, $email, $pwd_hashed, $address, $dob, $userID);
+            if (!$stmt->execute()){
+                $errorMsg = "Execute failed: (" . $stmt->errno . ")";
+                $stmt->error;
+                $success = false;
+                debug_to_console($errorMsg);
             }
+            debug_to_console($stmt->errno);
+            $stmt->close();
+                // }
+            // $conn->close();
+            debug_to_console("Done");
+            // }
         }
         ?>
 

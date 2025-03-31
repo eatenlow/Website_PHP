@@ -39,6 +39,7 @@
                         // Bind & execute the query statement:
                         $stmt->bind_param("i", $userID);
                         $stmt->execute();
+                        
                         $result = $stmt->get_result();
                         if ($result->num_rows > 0){
                             // Note that email field is unique, so should only have one row.
@@ -92,10 +93,9 @@
 
                 <div class="mb-3">
                     <form-label for="address">Address:</form-label>
-                    <?php 
-                    echo '<input type="text" id="address" name="address" class="form-control" maxlength="255"
-                    value='.$address.' required>'
-                    ?>
+                        <input type="text" id="address" name="address" class="form-control"
+                        maxlength="255" value="<?= $address ?>" required>
+                    
                 </div>
 
                 <div class="mb-3">
@@ -112,7 +112,7 @@
                     placeholder="Enter new password" value="">
                 </div>
 
-                <button class="btn btn-primary" type="submit">Update Details</button>
+                <button class="btn btn-primary" type="submit" name='submit'>Update Details</button>
             </form>
         </main>
     <?php

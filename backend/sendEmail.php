@@ -13,7 +13,7 @@ try{
     $mail->Port = 587; // Google SMTP port
     $mail->SMTPAuth = true; // Enable SMTP authentication
     $mail->Username = "pet.adopt.alert@gmail.com"; // SMTP username
-    $mail->Password = "mlzz trxi macd eftt"; // SMTP password
+    $mail->Password = file_get_contents("/var/www/private/emailAppPass.txt"); // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; 
 
     $mail->setFrom("pet.adopt@gmail.com", "Pet Adopt");

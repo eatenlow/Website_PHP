@@ -3,15 +3,30 @@
 function fetchAllEvents()
 {
     global $conn;
-    // require_once 'backend/db.php';
+    require_once 'backend/db.php';
     $events = [];
     $stmt = $conn->prepare("SELECT * FROM events ORDER BY id DESC");
     $stmt->execute();
-    $result = $stmt->get_result();
-    while (($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) !== false) {
-        $events[] = $row;
+    // Bind the result columns to variables
+    $stmt->bind_result($event_id, $event_name, $event_date, $event_time, $event_venue, $event_details, $event_link);
+
+    // Create an array to store the results
+    $events = [];
+
+    // Fetch each row as an object and store it in the array
+    while ($stmt->fetch()) {
+        // Create an object for each row and store it in the array
+        $resultObject = new stdClass();
+        $resultObject->event_id = $event_id;
+        $resultObject->event_name = $event_name;
+        $resultObject->event_date = $event_date;
+        $resultObject->event_time = $event_time;
+        $resultObject->event_venue = $event_venue;
+        $resultObject->event_details = $event_details;
+        $events[] = $resultObject;
     }
     $stmt->close();
+    $conn->close();
     return $events;
 }
 

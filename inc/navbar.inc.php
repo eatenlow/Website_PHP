@@ -40,6 +40,7 @@ session_start();
                             </a>
                         </li>";
                 }
+                echo 'Initial Working Directory: ' . getcwd() . '<br>';
                 ?>
             </ul>
 
