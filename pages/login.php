@@ -30,7 +30,7 @@
                 
                 <!-- Add the reCAPTCHA widget -->
                 <div class="mb-3">
-                    <div class="g-recaptcha" data-sitekey="6LdU2QQrAAAAABoBXLkbojao4KkUIf2CrCHbiGNr"></div>
+                    <div class="g-recaptcha" data-sitekey="-"></div>
                 </div>
 
                 <button class="btn btn-primary" type="submit">Submit</button>
