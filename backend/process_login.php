@@ -16,10 +16,25 @@ session_start();
         <main class="container">
         <?php
         
-
         if($_SERVER["REQUEST_METHOD"] === "POST"){
             $email = $errorMsg = "";
             $success = true;
+            
+            // Verify reCAPTCHA
+            $recaptcha_secret = "6LdU2QQrAAAAALd0FH42FiiRoVCTGEFDOotnSwTD";
+            $recaptcha_response = $_POST['g-recaptcha-response'];
+            
+            // Make request to Google to verify captcha
+            $verify_response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$recaptcha_secret.'&response='.$recaptcha_response);
+            $response_data = json_decode($verify_response);
+            
+            // Check if reCAPTCHA verification was successful
+            if (!$response_data->success) {
+                $errorMsg .= "Please complete the captcha verification.<br>";
+                $success = false;
+            }
+            
+            // Continue with existing validation
             if (empty($_POST["email"])){
                 $errorMsg .= "Email is required.<br>";
                 $success = false;
@@ -42,18 +57,11 @@ session_start();
                 $pwd = hash('sha256', $_POST["pwd"]);
                 // $pwd = ($_POST["pwd"]);
                 authenticateUser($pwd);
-
             }
             
             if ($success){
                 echo "<h4>Login successful!</h4>";
                 echo "<p>Welcome Back " . $fname . "</p>";
-                // echo "<p>Email: " . $email . "</p>";
-                // echo "<p>First Name: " . $fname . "</p>";
-                // echo "<p>Last Name: " . $lname . "</p>";
-                // echo "<p>pass hash: ";
-                // var_dump($pwd_hashed);
-                echo"</p>";
                 
                 // to change a session variable, just overwrite it
                 $_SESSION["login"] = true;
@@ -64,9 +72,6 @@ session_start();
             else{
                 echo "<h4><strong>The following input errors were detected:</strong></h4>";
                 echo "<p>" . $errorMsg . "</p>";
-                echo "<p>" . ($pwd) . "</p>";
-                echo "<p>" . ($pwd_hashed) . "</p>";
-                echo strcmp($pwd, $pwd_hashed);
                 echo "<a href=/login><button class='btn btn-danger'>Return to Login</button></a>";
             }
         }
@@ -134,7 +139,7 @@ session_start();
                         }
                         // Check if the password matches:
                         if (strcmp($pwd, $pwd_hashed) != 0){
-                            // Don’t tell hackers which one was wrong, keep them guessing...
+                            // Don't tell hackers which one was wrong, keep them guessing...
                             $errorMsg = "Email not found or password doesn't match...";
                             $success = false;
                         }
