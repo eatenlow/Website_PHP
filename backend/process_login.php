@@ -21,7 +21,7 @@ session_start();
             $success = true;
             
             // Verify reCAPTCHA
-            $recaptcha_secret = "6LdU2QQrAAAAALd0FH42FiiRoVCTGEFDOotnSwTD";
+            $recaptcha_secret = "-";
             $recaptcha_response = $_POST['g-recaptcha-response'];
             
             // Make request to Google to verify captcha
