@@ -25,18 +25,8 @@ session_start();
                 if (isset($_SESSION["admin"]) && isset($_SESSION["login"])) {
                     echo "
                         <li class=nav-item>
-                            <a class=nav-link href=/editSite>
-                                Edit Site
-                            </a>
-                        </li>
-                        <li class=nav-item>
-                            <a class=nav-link href=/manageList>
-                                Edit Listings
-                            </a>
-                        </li>
-                        <li class=nav-item>
-                            <a class=nav-link href=/manageUser>
-                                Edit Users
+                            <a class=nav-link href=/adminDashboard>
+                                Admin DashBoard
                             </a>
                         </li>";
                 }

@@ -8,6 +8,7 @@
     <body>
         <main class="container-lg w-60 w-md-80 w-sm-90 w-100 mx-auto">
         <h1><strong>Add Listing</strong></h1>
+        <a href="/manageList" class='btn btn-secondary mb-3'>Back to Manage Listing</a>
         <?php
             if(!isset($_SESSION["login"]) || ($_SESSION["admin"] != '1')){
                 header("Location: /a");

@@ -31,8 +31,8 @@ switch ($request) {
         require __DIR__ . $viewDir . 'logout.php';
         break;
 
-    case '/editSite':
-        require __DIR__ . $viewDir . 'editSite.php';
+    case '/adminDashboard':
+        require __DIR__ . $viewDir . 'adminDashboard.php';
         break;
     
     case '/manageUser':
