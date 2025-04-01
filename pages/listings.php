@@ -1,3 +1,208 @@
+<?php
+// This file contains the listing display logic
+
+// Function to build SQL query conditions from filters
+function buildFilterConditions($conn) {
+    $conditions = [];
+    $params = [];
+    $types = '';
+    
+    // Pet type filter
+    $petType = isset($_GET['pet_type']) && $_GET['pet_type'] != 'all' ? $_GET['pet_type'] : null;
+    if ($petType) {
+        $conditions[] = "pet_type = ?";
+        $params[] = $petType;
+        $types .= 's';
+    }
+    
+    // Gender filter
+    $gender = isset($_GET['gender']) && $_GET['gender'] != 'all' ? $_GET['gender'] : null;
+    if ($gender) {
+        $conditions[] = "gender = ?";
+        $params[] = $gender;
+        $types .= 's';
+    }
+    
+    // Price range
+    $minPrice = isset($_GET['min_price']) ? (int)$_GET['min_price'] : 0;
+    $maxPrice = isset($_GET['max_price']) ? (int)$_GET['max_price'] : 1000;
+    $conditions[] = "adopt_cost BETWEEN ? AND ?";
+    $params[] = $minPrice;
+    $params[] = $maxPrice;
+    $types .= 'ii';
+    
+    // Breeds filter
+    $selectedBreeds = isset($_GET['breeds']) ? $_GET['breeds'] : [];
+    if (!empty($selectedBreeds)) {
+        $breedPlaceholders = str_repeat('?,', count($selectedBreeds) - 1) . '?';
+        $conditions[] = "breed IN ($breedPlaceholders)";
+        foreach ($selectedBreeds as $breed) {
+            $params[] = $breed;
+            $types .= 's';
+        }
+    }
+
+    // Search filter (case insensitive)
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $searchTerm = "%{$_GET['search']}%";
+        $conditions[] = "(LOWER(pet_name) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?))";
+        $params[] = $searchTerm;
+        $params[] = $searchTerm;
+        $types .= 'ss';
+    }
+    
+    // Build WHERE clause
+    $whereClause = !empty($conditions) ? "WHERE " . implode(" AND ", $conditions) : "";
+    
+    return [
+        'whereClause' => $whereClause,
+        'params' => $params,
+        'types' => $types
+    ];
+}
+
+// Function to determine sort order
+function getSortOrder() {
+    $sortOption = isset($_GET['sort']) ? $_GET['sort'] : 'name_asc';
+    
+    switch ($sortOption) {
+        case 'name_asc':
+            return "ORDER BY pet_name ASC";
+        case 'name_desc':
+            return "ORDER BY pet_name DESC";
+        case 'price_asc':
+            return "ORDER BY adopt_cost ASC";
+        case 'price_desc':
+            return "ORDER BY adopt_cost DESC";
+        case 'age_asc':
+            return "ORDER BY age ASC";
+        case 'age_desc':
+            return "ORDER BY age DESC";
+        default:
+            return "ORDER BY pet_name ASC";
+    }
+}
+
+// Function to get pagination info
+function getPagination() {
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    $itemsPerPage = 9;
+    $offset = ($page - 1) * $itemsPerPage;
+    
+    return [
+        'page' => $page,
+        'itemsPerPage' => $itemsPerPage,
+        'offset' => $offset
+    ];
+}
+
+// Function to display pet listings
+function displayListings($conn) {
+    // Get filter conditions
+    $filterData = buildFilterConditions($conn);
+    $whereClause = $filterData['whereClause'];
+    $params = $filterData['params'];
+    $types = $filterData['types'];
+    
+    // Get sort order
+    $orderBy = getSortOrder();
+    
+    // Get pagination info
+    $pagination = getPagination();
+    $page = $pagination['page'];
+    $itemsPerPage = $pagination['itemsPerPage'];
+    $offset = $pagination['offset'];
+    
+    // Count total matching items
+    $countSql = "SELECT COUNT(*) FROM pets $whereClause";
+    $stmt = $conn->prepare($countSql);
+    
+    if (!empty($params)) {
+        $stmt->bind_param($types, ...$params);
+    }
+    
+    $stmt->execute();
+    $totalItems = $stmt->get_result()->fetch_row()[0];
+    $totalPages = ceil($totalItems / $itemsPerPage);
+    
+    // Get the listings
+    $listingSql = "SELECT * FROM pets $whereClause $orderBy LIMIT ? OFFSET ?";
+    $stmt = $conn->prepare($listingSql);
+    
+    // Add pagination parameters
+    $params[] = $itemsPerPage;
+    $params[] = $offset;
+    $types .= 'ii';
+    
+    $stmt->bind_param($types, ...$params);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $plainDescription = htmlspecialchars($row['description']);
+            $truncatedText = substr($plainDescription, 0, 110);
+            $showMoreLink = '<span class="show-more-text" data-id="'.$row['pet_ID'].'">(show more)</span>';
+
+            if (strlen($plainDescription) > 110) {
+                $displayText = nl2br($truncatedText) . '... ' . $showMoreLink;
+            } else {
+                $displayText = nl2br($plainDescription);
+            }
+
+            echo '<div class="col-md-4 mb-4">';
+            echo '<div class="card">';
+            echo '<img src="' . dirname(__DIR__).'/listingImages/'.htmlspecialchars($row['image']) . '" class="card-img-top" alt="' . htmlspecialchars($row['pet_name']) . '">';
+            echo '<div class="card-body">';
+            echo '<h5 class="card-title">' . htmlspecialchars($row['pet_name']) . '</h5>';
+            echo '<p class="card-text">';
+            echo '<strong>Breed:</strong> ' . htmlspecialchars($row['breed']) . '<br>';
+            echo '<strong>Type:</strong> ' . htmlspecialchars($row['pet_type']) . '<br>';
+            echo '<strong>Age:</strong> ' . htmlspecialchars($row['age']) . '<br>';
+            echo '<strong>Gender:</strong> ' . htmlspecialchars($row['gender']) . '<br>';
+            echo '<strong>Adoption Cost:</strong> $' . htmlspecialchars($row['adopt_cost']) . '<br>';
+            echo '<strong>Description:</strong> ' . $displayText;
+            echo '</p>';
+            echo '<a href="/pet/' . htmlspecialchars($row['pet_ID']) . '" class="btn btn-primary">Adopt Now</a>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+        }
+    } else {
+        echo '<div class="col-12"><p>No pets match your filter criteria. Please try different filters.</p></div>';
+    }
+    
+    // Return pagination info for the pagination function
+    return [
+        'totalPages' => $totalPages,
+        'currentPage' => $page
+    ];
+}
+
+// Function to render pagination links
+function renderPagination($paginationInfo) {
+    $totalPages = $paginationInfo['totalPages'];
+    $currentPage = $paginationInfo['currentPage'];
+    
+    if ($totalPages > 1) {
+        echo '<div class="col-12 text-center pagination-container">';
+        
+        // Create the base URL with all current GET parameters except 'page'
+        $queryParams = $_GET;
+        unset($queryParams['page']);
+        $baseUrl = '?' . http_build_query($queryParams);
+        if (!empty($queryParams)) {
+            $baseUrl .= '&';
+        }
+        
+        for ($i = 1; $i <= $totalPages; $i++) {
+            echo '<a href="' . $baseUrl . 'page=' . $i . '" class="btn btn-light mx-1 ' . ($currentPage == $i ? 'active' : '') . '">' . $i . '</a>';
+        }
+        
+        echo '</div>';
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -134,12 +339,17 @@
             </div>
 
             <!-- Listings Content -->
+            <!-- Include the filter sidebar -->
+            <?php include 'backend/filter.php'; ?>
+            
+            <!-- Listings Content HTML -->
             <div class="col-md-9">
                 <div class="sort-container">
                     <h2>Pet Listings</h2>
                     <div class="d-flex align-items-center">
                         <span class="sort-label">Sort by:</span>
                         <select id="sort-select" class="form-select" name="sort" onchange="this.form.submit()">
+                        <select id="sort-select" class="form-select" name="sort">
                             <option value="name_asc" <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'name_asc') ? 'selected' : ''; ?>>Name (A-Z)</option>
                             <option value="name_desc" <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'name_desc') ? 'selected' : ''; ?>>Name (Z-A)</option>
                             <option value="price_asc" <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'price_asc') ? 'selected' : ''; ?>>Price (Low to High)</option>
@@ -236,6 +446,8 @@
                                 default:
                                     $orderBy = "ORDER BY pet_name ASC";
                             }
+                            // Display listings and get pagination info
+                            $paginationInfo = displayListings($conn);
                             
                             // Pagination
                             $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -355,6 +567,8 @@
                                 
                                 echo '</div>';
                             }
+                            // Render pagination
+                            renderPagination($paginationInfo);
                             
                             $conn->close();
                         }
@@ -372,6 +586,9 @@
         <img id="popup-image" src="" alt="Popup Image">
     </div>
 
+    <!-- Include the popup functionality -->
+    <?php include 'backend/popup.php'; ?>
+    
     <script>
         $(document).ready(function() {
             // Initialize price slider
@@ -439,6 +656,10 @@
                 // Navigate to the new URL
                 window.location.href = url.toString();
             });
+    $(document).ready(function() {
+        // Sort change handler
+        $('#sort-select').change(function() {
+            var sortVal = $(this).val();
             
             // Pet type radio change handler - show/hide relevant breeds
             $('input[name="pet_type"]').change(function() {
@@ -457,6 +678,9 @@
                     $('.breed-category').nextUntil('.breed-category').show();
                 }
             });
+            // Get current URL and parameters
+            var url = new URL(window.location.href);
+            url.searchParams.set('sort', sortVal);
             
             // Initialize filters based on URL parameters
             var urlParams = new URLSearchParams(window.location.search);
@@ -480,7 +704,10 @@
                     $(`input[name="breeds[]"][value="${breed}"]`).prop('checked', true);
                 });
             }
+            // Navigate to the new URL
+            window.location.href = url.toString();
         });
+    });
     </script>
 </body>
 
