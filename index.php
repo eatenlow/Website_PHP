@@ -63,6 +63,19 @@ switch ($request) {
         require __DIR__ . $viewDir . 'listings.php';
         break;
 
+    case '/manageEvents':
+        require __DIR__ . $viewDir . 'manageEvents.php';
+        break;
+    
+    case '/addEvent':
+        require __DIR__ . $viewDir . 'addEvent.php';
+        break;
+    
+    case '/editEvent':
+        require __DIR__ . $viewDir . 'editEvent.php';
+        break;
+        
+
     case '/about':
         require __DIR__ . $viewDir . 'about.php';
         break;

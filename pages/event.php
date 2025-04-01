@@ -19,27 +19,26 @@
         <?php
         require 'backend/event_info_retrieve.php';
 
-        if (!isset($_SESSION['id'])) {
-            // echo "<p> Please <a href='/login'>log in</a>to register for events.</p>";
-            // Approach #1: Prominent Notice Box
-            echo '<div class="alert alert-info text-center p-3 mb-4">';
-            echo '<i class="bi bi-info-circle-fill me-2"></i>';
-            echo '<strong>You need to be logged in to register for events.</strong>';
-            echo '<a href="/login" class="btn btn-primary ms-3">Log In Now</a>';
-            echo '</div>';
+    if (!isset($_SESSION['id'])) {
+        // echo "<p style='color:red;'> Please <a href='/login'>log in</a>to register for events.</p>";
+        echo '<div class="alert alert-info text-center p-3 mb-4">';
+        echo '<i class="bi bi-info-circle-fill me-2"></i>';
+        echo '<strong>You need to be logged in to register for events.</strong>';
+        echo '<a href="/login" class="btn btn-primary ms-3">Log In Now</a>';
+        echo '</div>';
+        $events = fetchAllEvents();
+        // exit();
+    }
+    else{
+        require 'backend/event_register.php';
+        $user_id = $_SESSION['id'];
 
-            $events = fetchAllEvents();
-            // exit();
-        } else {
-            require 'backend/event_register.php';
-            $user_id = $_SESSION['id'];
-
-            // // Handle form actions
-            handleEventAction($user_id);
-
-            // Get event data
-            $events = fetchUnregisteredEvents($user_id);
-            $registered_events = fetchUserRegistrations($user_id);
+        // // Handle form actions
+        handleEventAction($user_id);
+        
+        // Get event data
+        $events = fetchUnregisteredEvents($user_id);
+        $registered_events = fetchUserRegistrations($user_id);
         }
 
         ?>

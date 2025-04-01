@@ -63,6 +63,29 @@
                 </ul>
             </div>
         </li>
+        <li>
+            <a href="#eventsSubmenu" class="nav-link link-dark rounded-3" data-bs-toggle="collapse">
+                <i class="bi bi-heart-fill me-2"></i>
+                <span class="nav-link-text">Events</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <div class="collapse show" id="petsSubmenu">
+                <ul class="nav flex-column ms-3">
+                    <li>
+                        <a href="/manageEvents" class="nav-link link-dark rounded-3">
+                            <i class="bi bi-list-ul me-2"></i>
+                            <span class="nav-link-text">Manage Events</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/addEvent" class="nav-link link-dark rounded-3">
+                            <i class="bi bi-plus-circle me-2"></i>
+                            <span class="nav-link-text">Add Event</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
     </ul>
     <hr>
     <div class="dropdown">
