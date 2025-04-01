@@ -10,14 +10,6 @@ session_start();
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <style>
-        .cart-pet-img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
-    </style>
 </head>
 <body>
     <?php include 'inc/navbar.inc.php'; ?>
@@ -81,9 +73,13 @@ session_start();
                 </table>
 
                 <div class="text-end">
-                    <a href="checkout.php" class="btn btn-success">Proceed to Checkout</a>
+                     <?php if (isset($_SESSION['id'])): ?>
+                        <a href="/checkout" class="btn btn-success">Proceed to Checkout</a>
+                    <?php else: ?>
+                        <a href="/login?redirect=checkout" class="btn btn-success">Login to Checkout</a>
+                        <?php endif; ?>
                     <a href="backend/empty_cart.php" class="btn btn-danger">Empty Cart</a>
-                </div>
+                    </div>
             </div>
         <?php endif; ?>
 

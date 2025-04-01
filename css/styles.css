@@ -500,3 +500,21 @@ a {
 .sidebar .dropdown-item:hover {
     background-color: rgba(13, 110, 253, 0.1);
 }
+
+.checkout-pet-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+.summary-card {
+    background-color: rgba(13, 110, 253, 0.1);
+    border-radius: 10px;
+}
+
+.cart-pet-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+}
