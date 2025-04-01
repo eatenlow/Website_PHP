@@ -15,7 +15,7 @@
 <body>
     <?php include 'inc/navbar.inc.php'; ?>
     <main class="container-lg w-60 w-md-80 w-sm-90 w-100 mx-auto">
-        <h2><strong>Event Registration</strong></h2>
+        <h1><strong>Event Registration</strong></h1>
         <?php
         require 'backend/event_info_retrieve.php';
 
@@ -47,7 +47,7 @@
             <section class="my-4">
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-primary text-white">
-                        <h3 class="h4 mb-0"><i class="bi bi-calendar-check me-2"></i>My Registered Events</h3>
+                        <h2 class="h4 mb-0"><i class="bi bi-calendar-check me-2"></i>My Registered Events</h2>
                     </div>
                     <div class="card-body">
                         <?php if (empty($registered_events)): ?>
@@ -88,7 +88,7 @@
         <?php endif; ?>
 
         <!-- Register for New Events -->
-        <h3>Register for an Event</h3>
+        <h2>Register for an Event</h2>
         <?php if ($events === []): ?>
             <p>There are no other events available...</p>
         <?php else: ?>

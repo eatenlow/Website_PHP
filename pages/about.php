@@ -15,119 +15,157 @@
 
 <body>
     <?php include 'inc/navbar.inc.php'; ?>
-
-    <!-- Introduction -->
-    <section class="container my-5">
-        <h2 class="text-center">About Us</h2>
-        <div class="row justify-content-center">
-            <!-- Mission Card -->
-            <div class="col-md-5">
-                <div class="card mission-vision-card text-center">
-                    <div class="card-body">
-                        <div class="icon-container">
-                            <i class="fa-solid fa-shield-dog"></i> <!-- FontAwesome Icon -->
+    <main>
+        <!-- Introduction -->
+        <section class="container my-5">
+            <h1 class="text-center">About Us</h1>
+            <div class="row justify-content-center">
+                <!-- Mission Card -->
+                <div class="col-md-5">
+                    <div class="card mission-vision-card text-center">
+                        <div class="card-body">
+                            <div class="icon-container">
+                                <i class="fa-solid fa-shield-dog"></i> <!-- FontAwesome Icon -->
+                            </div>
+                            <h2 class="card-title">Who We Are</h2>
+                            <p class="card-text">PetAdopt is a dedicated adoption center that provides a temporary, loving home for animals before they find their forever families. We ensure every pet receives the care, support, and medical attention they need while they wait to be adopted. </p>
                         </div>
-                        <h3 class="card-title">Who We Are</h3>
-                        <p class="card-text">PetAdopt is a dedicated adoption center that provides a temporary, loving home for animals before they find their forever families. We ensure every pet receives the care, support, and medical attention they need while they wait to be adopted. </p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Mission & Vision Section -->
-    <section class="container my-5">
-        <h2 class="text-center">Mission & Vision</h2>
-        <div class="row justify-content-center">
-            <!-- Mission Card -->
-            <div class="col-md-5">
-                <div class="card mission-vision-card text-center">
-                    <div class="card-body">
-                        <div class="icon-container">
-                            <i class="fa-solid fa-bullseye"></i> <!-- FontAwesome Icon -->
+        <!-- Mission & Vision Section -->
+        <section class="container my-5">
+            <h2 class="text-center">Mission & Vision</h2>
+            <div class="row justify-content-center">
+                <!-- Mission Card -->
+                <div class="col-md-5">
+                    <div class="card mission-vision-card text-center">
+                        <div class="card-body">
+                            <div class="icon-container">
+                                <i class="fa-solid fa-bullseye"></i> <!-- FontAwesome Icon -->
+                            </div>
+                            <h3 class="card-title">MISSION</h3>
+                            <p class="card-text">To promote kindness and to prevent cruelty to animals through education, advocacy, and action.</p>
                         </div>
-                        <h3 class="card-title">MISSION</h3>
-                        <p class="card-text">To promote kindness and to prevent cruelty to animals through education, advocacy, and action.</p>
+                    </div>
+                </div>
+
+                <!-- Vision Card -->
+                <div class="col-md-5">
+                    <div class="card mission-vision-card text-center">
+                        <div class="card-body">
+                            <div class="icon-container">
+                                <i class="fa-solid fa-eye"></i> <!-- FontAwesome Icon -->
+                            </div>
+                            <h3 class="card-title">VISION</h3>
+                            <p class="card-text">A compassionate world where all animals are treated with kindness and respect.</p>
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Vision Card -->
-            <div class="col-md-5">
-                <div class="card mission-vision-card text-center">
-                    <div class="card-body">
-                        <div class="icon-container">
-                            <i class="fa-solid fa-eye"></i> <!-- FontAwesome Icon -->
-                        </div>
-                        <h3 class="card-title">VISION</h3>
-                        <p class="card-text">A compassionate world where all animals are treated with kindness and respect.</p>
+
+        <!-- How Pet Adoption Works -->
+        <section class="container my-5">
+            <h2 class="text-center mb-4">How Pet Adoption Works</h2>
+            <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                    <div class="adoption-step-card">
+                        <i class="bi bi-search-heart display-4 mb-3 adoption-icon"></i>
+                        <h3 class="fw-bold">Step 1: Browse Pets</h3>
+                        <p class="mb-0">Explore available pets on our website and find your perfect match based on your lifestyle, living situation, and preferences.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="adoption-step-card">
+                        <i class="bi bi-chat-square-text display-4 mb-3 adoption-icon"></i>
+                        <h3 class="fw-bold">Step 2: Apply & Connect</h3>
+                        <p class="mb-0">Submit an adoption application and we'll arrange a meet-and-greet with your potential new family member.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="adoption-step-card">
+                        <i class="bi bi-house-heart display-4 mb-3 adoption-icon"></i>
+                        <h3 class="fw-bold">Step 3: Bring Them Home</h3>
+                        <p class="mb-0">Once approved, welcome your new pet into your home with our support and resources for a smooth transition.</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
+        <!-- Contact Information -->
+        <section class="container my-5">
+            <h2 class="text-center mb-4">Get In Touch</h2>
+            <p class="text-center mb-4">Have questions? Feel free to reach out to us.</p>
 
-    <!-- How Pet Adoption Works -->
-    <section class="container my-5">
-        <h2 class="text-center">How Pet Adoption Works</h2>
-        <div class="row text-center">
-            <div class="col-md-4">
-                <i class="bi bi-search-heart display-4"></i>
-                <h4>Step 1: Browse Pets</h4>
-                <p>Explore available pets on our website and find your perfect match.</p>
-            </div>
-            <div class="col-md-4">
-                <i class="bi bi-chat-square-text display-4"></i>
-                <h4>Step 2: Apply & Connect</h4>
-                <p>Submit an adoption application and we will get back to you.</p>
-            </div>
-            <div class="col-md-4">
-                <i class="bi bi-house-heart display-4"></i>
-                <h4>Step 3: Bring Them Home</h4>
-                <p>Once approved, welcome your new pet into your home and family!</p>
-            </div>
-        </div>
-    </section>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="contact-card">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi bi-envelope-fill me-2 contact-icon"></i>
+                                    <h3 class="mb-0">Email</h3>
+                                </div>
+                                <p class="card-text"><a href="mailto:contact@petadopt.com" class="text-decoration-none">contact@petadopt.com</a></p>
+                            </div>
+                        </div>
 
-    <!-- Contact Information -->
-    <section class="container my-5">
-        <h2 class="text-center">Get In Touch</h2>
-        <p class="text-center">Have questions? Feel free to reach out to us.</p>
-        <div class="row">
-            <div class="col-md-6">
-                <h4><i class="bi bi-envelope"></i> Email</h4>
-                <p>contact@petadopt.com</p>
-                <h4><i class="bi bi-telephone"></i> Phone</h4>
-                <p>+65 9123 4567</p>
-            </div>
-            <div class="col-md-6">
-                <h4><i class="bi bi-instagram"></i> Social Media</h4>
-                <div class="social-icons">
-                    <a href="https://facebook.com" target="_blank">
-                        <i class="fa-brands fa-facebook fa-2xl"></i> <!-- FontAwesome Icon -->
-                    </a>
-                    <a href="https://instagram.com" target="_blank">
-                        <i class="fa-brands fa-instagram fa-2xl"></i> <!-- FontAwesome Icon -->
-                    </a>
+                        <div class="col-md-6">
+                            <div class="contact-card">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi bi-telephone-fill me-2 contact-icon"></i>
+                                    <h3 class="mb-0">Phone</h3>
+                                </div>
+                                <p class="card-text"><a href="tel:+6591234567" class="text-decoration-none">+65 9123 4567</a></p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="contact-card">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi bi-instagram me-2 contact-icon"></i>
+                                    <h3 class="mb-0">Social Media</h3>
+                                </div>
+                                <div class="social-icons">
+                                    <a href="https://facebook.com" target="_blank" class="me-3" aria-label="Facebook">
+                                        <i class="fa-brands fa-facebook fa-xl"></i>
+                                    </a>
+                                    <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+                                        <i class="fa-brands fa-instagram fa-xl"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="contact-card">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="bi bi-geo-alt-fill me-2 contact-icon"></i>
+                                    <h4 class="mb-0">Visit Us</h4>
+                                </div>
+                                <p class="card-text">11 New Punggol Rd, Singapore 828616</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <h4><i class="bi bi-geo-alt"></i> Visit Us</h4>
-                <p>11 New Punggol Rd, Singapore 828616</p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Google Map Embed -->
-    <section class="container my-5">
-        <h2 class="text-center">Our Location</h2>
-        <div class="map-container text-center">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.6031349806262!2d103.90816577515022!3d1.4141430985725234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da15ac1f854ff5%3A0x681080ba33c348ca!2sSingapore%20Institute%20of%20Technology%20(Campus%20Heart)%20(U%2FC)!5e0!3m2!1sen!2ssg!4v1742288281769!5m2!1sen!2ssg"
-                style="width: 100%; height: 400px; border: 0;" allowfullscreen="" loading="lazy">
-            </iframe>
-        </div>
-    </section>
+        <!-- Google Map Embed -->
+        <section class="container my-5">
+            <h2 class="text-center">Our Location</h2>
+            <div class="map-container text-center">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.6031349806262!2d103.90816577515022!3d1.4141430985725234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da15ac1f854ff5%3A0x681080ba33c348ca!2sSingapore%20Institute%20of%20Technology%20(Campus%20Heart)%20(U%2FC)!5e0!3m2!1sen!2ssg!4v1742288281769!5m2!1sen!2ssg"
+                    title="Google Map showing PetAdopt's location" allowfullscreen="" loading="lazy">
+                </iframe>
+            </div>
+        </section>
+    </main>
 
     <?php include 'inc/footer.inc.php'; ?>
 
