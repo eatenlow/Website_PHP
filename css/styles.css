@@ -87,7 +87,6 @@
 /* Small Screens: 1 card per slide */
 @media (max-width: 767px) {
     .carousel-item .col-md-4 {
-        display: block;
         flex: 0 0 100%;
         max-width: 100%;
     }
@@ -299,10 +298,12 @@ a {
 }
 
 .toggle-btn {
-    position: relative; /* Changed from absolute */
+    position: relative;
+    /* Changed from absolute */
     color: #6c757d;
     transition: all 0.3s;
-    align-self: flex-end; /* Align to the right */
+    align-self: flex-end;
+    /* Align to the right */
     margin-bottom: 0.5rem;
 }
 
@@ -312,7 +313,8 @@ a {
 }
 
 .sidebar.collapsed .toggle-btn {
-    margin-left: auto; /* Keep it aligned right when collapsed */
+    margin-left: auto;
+    /* Keep it aligned right when collapsed */
     margin-right: 0.25rem;
 }
 

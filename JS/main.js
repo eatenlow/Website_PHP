@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", function () {
     registerEventListeners();
     activateMenu();
 
-    // For responsive carousel
     let itemsPerSlide = 3; // Default for large screens
+
     function updateCarouselItems() {
         let screenWidth = window.innerWidth;
 
@@ -140,33 +140,33 @@ function activateMenu() {
 }
 
 function initShowMorePopups() {
-    $(document).on('click', '.show-more-text', function(e) {
+    $(document).on('click', '.show-more-text', function (e) {
         e.preventDefault();
         const petId = $(this).data('id');
-        const $popup = $('#popup-'+petId);
-        
+        const $popup = $('#popup-' + petId);
+
         // Debug output
         console.log('Popup debug:', {
             petId: petId,
             elementExists: $popup.length > 0,
             html: $popup.length ? $popup.html() : 'MISSING'
         });
-    
+
         if ($popup.length) {
             $('body').css('overflow', 'hidden'); // Prevent scrolling
             $popup.fadeIn(200).css('display', 'flex');
         }
     });
-    
+
     // Close handlers
-    $(document).on('click', '.close-popup, .description-popup', function(e) {
+    $(document).on('click', '.close-popup, .description-popup', function (e) {
         if ($(e.target).hasClass('description-popup') || $(e.target).hasClass('close-popup')) {
             $('body').css('overflow', '');
             $(this).closest('.description-popup').fadeOut(200);
         }
     });
-    
-    $(document).keydown(function(e) {
+
+    $(document).keydown(function (e) {
         if (e.key === "Escape") {
             $('body').css('overflow', '');
             $('.description-popup').fadeOut(200);
@@ -175,6 +175,6 @@ function initShowMorePopups() {
 }
 
 // Initialize when document is ready
-$(document).ready(function() {
+$(document).ready(function () {
     initShowMorePopups();
 });

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="JS/main.js"></script>
 
     <?php
     require_once 'backend/db.php'; // Secure database connection
@@ -145,37 +145,21 @@
 
         <div id="eventsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
             <div class="carousel-inner">
-                <?php 
-                // foreach ($events as $index => $event): 
-                    $event = array_chunk($events, 3); // 3 items per slide
-                    foreach ($event as $index => $event):
-                    ?>
-                    <!-- <div class="col-md-4"> -->
-                    <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                        <div class="row justify-content-center">
-                        <?php foreach($event as $item): ?>
-                            <div class="col-md-4">
-                                <div class="event-card">
-                                <div class="card-inner">
-                                    <div class="card-front">
-                                        <h3><?= htmlspecialchars($item["title"]) ?></h3>
-                                        <p><?= htmlspecialchars($item["date"]) ?></p>
-                                        <p><?= htmlspecialchars($item["time"]) ?></p>
-                                        <p><?= htmlspecialchars($item["venue"]) ?></p>
-                                    </div>
-                                    <div class="card-back">
-                                        <p><?= htmlspecialchars($item["details"]) ?></p>    
-                                        <form method="POST" action=/event>
-                                            <input type="hidden" name="event_id" id=event value="<?= $item["id"]?>">
-                                            <input type="hidden" name="action" value="register">
-                                            <button type=submit class="btn btn-outline-light">Register</button>
-                                        </form>
-
-                                    </div>
+                <?php foreach ($events as $index => $event): ?>
+                    <div class="col-md-4">
+                        <div class="event-card">
+                            <div class="card-inner">
+                                <div class="card-front">
+                                    <h3><?= htmlspecialchars($event["title"]) ?></h3>
+                                    <p><?= htmlspecialchars($event["date"]) ?></p>
+                                    <p><?= htmlspecialchars($event["time"]) ?></p>
+                                    <p><?= htmlspecialchars($event["venue"]) ?></p>
                                 </div>
+                                <div class="card-back">
+                                    <p><?= htmlspecialchars($event["details"]) ?></p>
+                                    <a href="<?= htmlspecialchars($event["link"]) ?>" class="btn btn-outline-light">View Details</a>
                                 </div>
                             </div>
-                            <?php endforeach; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
