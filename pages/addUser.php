@@ -19,7 +19,7 @@ if (isset($_GET['error'])) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Add New User</title>
     <?php include "inc/head.inc.php"; ?>
@@ -38,33 +38,33 @@ if (isset($_GET['error'])) {
         <form method="post" action="/backend/new_user.php" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">First Name*</label>
-                <input type="text" name="fname" class="form-control" value="<?php echo htmlspecialchars($fname); ?>" required>
+                <input type="text" name="fname" class="form-control" aria-label='First name' value="<?php echo htmlspecialchars($fname); ?>" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Last Name*</label>
-                <input type="text" name="lname" class="form-control" value="<?php echo htmlspecialchars($lname); ?>" required>
+                <input type="text" name="lname" class="form-control" aria-label='Last name' value="<?php echo htmlspecialchars($lname); ?>" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Email*</label>
-                <input type="email" name="email" class="form-control" value="<?php echo htmlspecialchars($email); ?>" required>
+                <input type="email" name="email" class="form-control" aria-label='Email address' value="<?php echo htmlspecialchars($email); ?>" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Password*</label>
-                <input type="password" name="password" class="form-control" required>
+                <input type="password" name="password" aria-label='password' class="form-control" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Address</label>
-                <input type="text" name="address" class="form-control" value="<?php echo htmlspecialchars($address); ?>">
+                <input type="text" name="address" class="form-control" aria-label='address' value="<?php echo htmlspecialchars($address); ?>">
             </div>
             <div class="mb-3">
                 <label class="form-label">Date of Birth</label>
-                <input type="date" name="dateofbirth" class="form-control" value="<?php echo htmlspecialchars($dob); ?>">
+                <input type="date" name="dateofbirth" class="form-control" aria-label='date of birth' value="<?php echo htmlspecialchars($dob); ?>">
             </div>
             <div class="mb-3 form-check">
-                <input type="checkbox" name="admin" class="form-check-input" <?php echo $admin ? 'checked' : ''; ?>>
+                <input type="checkbox" name="admin" class="form-check-input" aria-label='admin privileges' <?php echo $admin ? 'checked' : ''; ?>>
                 <label class="form-check-label">Admin Privileges</label>
             </div>
-            <button type="submit" name="submit" class="btn btn-primary">Add User</button>
+            <button type="submit" name="submit" aria-label='add new user' class="btn btn-primary">Add User</button>
         </form>
     </main>
 

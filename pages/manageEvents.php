@@ -14,7 +14,7 @@ $conn->close();
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <?php 
         include 'inc/head.inc.php';
@@ -28,9 +28,10 @@ $conn->close();
 </head>
 <body>
     <div class="d-flex">
+        <nav>
         <!-- Include sidebar -->
         <?php include "inc/sidebar.inc.php"; ?>
-        
+        </nav>
         <!-- Main Content -->
         <main class="main-content flex-grow-1 p-4">
             <div class="container-fluid">
@@ -50,6 +51,7 @@ $conn->close();
                                 <th>Time</th>
                                 <th>Venue</th>
                                 <th>Details</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,12 +64,12 @@ $conn->close();
                                 <td><?= htmlspecialchars($row["venue"]) ?></td>
                                 <td><?= htmlspecialchars($row["details"]) ?></td>
                                 <td>
-                                    <a href="/editEvent?id=<?= $row["id"] ?>">
-                                        <i class="bi bi-pencil-square text-primary"></i>
+                                    <a href="/editEvent?id=<?= $row["id"] ?>" aria-label='Edit event details'>
+                                    <i class="bi bi-pencil-fill text-primary" style="font-size: 1rem;"></i>
                                     </a>
                                     <form method="post" action="backend/delete_event.php" style="display:inline;">
                                         <input type="hidden" name="id" value="<?php echo $row['pet_ID']; ?>">
-                                        <button type="submit" class="border-0 bg-transparent p-0" onclick="return confirm('Are you sure?')">
+                                        <button type="submit" class="border-0 bg-transparent p-0" onclick="return confirm('Are you sure?')" aria-label='Delete Event'>
                                             <i class="bi bi-trash-fill text-danger" style="font-size: 1rem;"></i>
                                         </button>
                                     </form>

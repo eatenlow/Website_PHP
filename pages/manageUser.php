@@ -14,7 +14,7 @@ $conn->close();
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <?php 
         include 'inc/head.inc.php';
@@ -28,8 +28,10 @@ $conn->close();
 </head>
 <body>
     <div class="d-flex">
-        <!-- Include sidebar -->
-        <?php include "inc/sidebar.inc.php"; ?>
+        <nav>
+            <!-- Include sidebar -->
+            <?php include "inc/sidebar.inc.php"; ?>
+        </nav>
         
         <!-- Main Content -->
         <main class="main-content flex-grow-1 p-4">
@@ -69,12 +71,12 @@ $conn->close();
                                 <td><?php echo $row['admin'] ? 'Yes' : 'No'; ?></td>
                                 <td>
                                     <div class="d-flex gap-2 align-items-center">
-                                        <a href="/editUser?id=<?php echo $row['member_id']; ?>" class="text-decoration-none">
+                                        <a href="/editUser?id=<?php echo $row['member_id']; ?>" aria-label='Edit User' class="text-decoration-none">
                                             <i class="bi bi-pencil-fill text-primary" style="font-size: 1rem;"></i>
                                         </a>
                                         <form method="post" action="backend/delete_user.php" style="display:inline;">
                                             <input type="hidden" name="id" value="<?php echo $row['member_id']; ?>">
-                                            <button type="submit" class="border-0 bg-transparent p-0" onclick="return confirm('Are you sure?')">
+                                            <button type="submit" class="border-0 bg-transparent p-0" onclick="return confirm('Are you sure?')" aria-label="Delete user">
                                                 <i class="bi bi-trash-fill text-danger" style="font-size: 1rem;"></i>
                                             </button>
                                         </form>

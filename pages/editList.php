@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
     <head>
         <?php 
             include 'inc/head.inc.php';
@@ -51,39 +51,39 @@
             <form action="../backend/update_listing.php" method="post" enctype="multipart/form-data">
                 <?php 
                     echo '
-                    <img src='.dirname(__DIR__).'/listingImages/'.$image.' style="width:100px"></img>
+                    <img src='.dirname(__DIR__).'/listingImages/'.$image.' style="width:100px" alt="Listing photo"></img>
                     <br><br>
                     <form-label for="image">New Pet Image:</form-label>
-                    <input type="file" name="image" id="image">
+                    <input type="file" name="image" id="image" aria-label="Pet Photo Upload">
                     <input type="hidden" name="image" value='.$image.'>
                     <br><br>
                     ';
                 ?>
                 <div class="mb-3">
                     <form-label for="name">Pet Name:</form-label>
-                    <input type="text" id=name name="name" value="<?= htmlspecialchars($name) ?>" class="form-control" maxlength="45" required>
+                    <input type="text" id=name name="name" aria-label='pet name' value="<?= htmlspecialchars($name) ?>" class="form-control" maxlength="45" required>
                 </div>
 
                 <div class="mb-3">
                     <form-label for="type">Pet Type:</form-label>
-                    <input type="text" id=type name="type" value="<?= htmlspecialchars($type) ?>" class="form-control" maxlength="45" required>
+                    <input type="text" id=type name="type" aria-label='pet type' value="<?= htmlspecialchars($type) ?>" class="form-control" maxlength="45" required>
                 </div>
 
                 <div class="mb-3">
                     <form-label for="breed">Breed:</form-label>
-                    <input type="text" id=breed name="breed" value="<?= htmlspecialchars($breed) ?>" class="form-control" maxlength="45" required>
+                    <input type="text" id=breed name="breed" aria-label='breed' value="<?= htmlspecialchars($breed) ?>" class="form-control" maxlength="45" required>
                 </div>
 
                 <div class="mb-3">
                     <form-label for="age">Age:</form-label>
-                    <input type="number" id=age name="age" value="<?= htmlspecialchars($age) ?>" class="form-control" maxlength="45" required>
+                    <input type="number" id=age name="age" aria-label='age' value="<?= htmlspecialchars($age) ?>" class="form-control" maxlength="45" required>
                 </div>
 
                 <div class="mb-3">
                     <form-label for="gender">Gender:</form-label>
                     <?php 
                         echo '
-                        <select name="gender" id="gender" value='.$gender.'>
+                        <select name="gender" id="gender" value='.$gender.' aria-label="gender">
                           <option value="Male">Male</option>
                           <option "Female">Female</option>
                         </select>
@@ -93,12 +93,12 @@
 
                 <div class="mb-3">
                     <form-label for="cost">Adoption Cost:</form-label>
-                    <input type="number" id=cost name="cost" value="<?= htmlspecialchars($cost) ?>" class="form-control" maxlength="45" required>
+                    <input type="number" id=cost name="cost" aria-label='cost' value="<?= htmlspecialchars($cost) ?>" class="form-control" maxlength="45" required>
                 </div>
 
                 <div class="mb-3">
                     <form-label for="desc">Description:</form-label>
-                    <input type="text" id=desc name="desc" value="<?= htmlspecialchars($desc) ?>" class="form-control" required>
+                    <input type="text" id=desc name="desc" aria-label=description value="<?= htmlspecialchars($desc) ?>" class="form-control" required>
                 </div>
 
                 <button class="btn btn-primary" type="submit" name='submit'>Update Details</button>
