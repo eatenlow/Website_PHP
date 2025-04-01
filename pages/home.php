@@ -11,7 +11,7 @@
     <script src="JS/main.js"></script>
 
     <?php
-    include 'inc/head.inc.php'; 
+    include 'inc/head.inc.php';
     require_once 'backend/db.php'; // Secure database connection
     require_once 'backend/carousel.php'; // Load the function for fetching OG images 
 
@@ -53,18 +53,76 @@
 <body>
     <?php include 'inc/navbar.inc.php'; ?>
     <!-- Hero Section -->
-    <header class="hero-section text-center text-black">
+    <header class="hero-section py-5">
         <div class="container">
-            <h1>Find Your New Best Friend</h1>
-            <p>Adopt a pet and give them a loving home today.</p>
-            <a href="/listings" class="btn btn-primary">View Available Pets</a>
+            <div class="row align-items-center">
+                <div class="col-lg-7 text-center text-lg-start">
+                    <h1 class="display-3 fw-bold mb-3 animate__animated animate__fadeInUp">Find Your New <span class="hero-highlight">Best Friend</span></h1>
+                    <p class="lead mb-4 animate__animated animate__fadeInUp animate__delay-1s">Adopt a pet and give them a loving home today. You'll be changing their life — and yours!</p>
+                    <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start animate__animated animate__fadeInUp animate__delay-2s">
+                        <a href="/listings" class="btn btn-primary btn-lg px-4 py-2">View Available Pets</a>
+                        <a href="/about" class="btn btn-outline-light btn-lg px-4 py-2">Learn About Us</a>
+                    </div>
+                </div>
+                <div class="col-lg-5 d-none d-lg-block">
+                    <div class="position-relative mt-4">
+                        <div class="circle-wrapper circle-large">
+                            <img src="images/chihuahua_large.jpg" alt="Happy dog" class="circle-img">
+                        </div>
+                        <div class="circle-wrapper circle-small">
+                            <img src="images/calico_large.jpg" alt="Happy dog" class="circle-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
     <!-- Why Adopt Section -->
-    <section class="container text-center my-5">
-        <h2>Why Adopt?</h2>
-        <p>Adopting a pet not only saves their life but also brings joy to your home.</p>
+    <section class="container my-5 py-4">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Why <span class="section-title-highlight">Adopt?</span></h2>
+            <div class="d-flex justify-content-center">
+                <hr class="mx-auto section-divider">
+            </div>
+            <p class="lead mt-3 mb-5 text-muted">Adopting a pet not only saves their life but also brings joy and companionship to your home.</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="rounded-circle bg-primary bg-opacity-10 mb-3 d-inline-flex justify-content-center align-items-center icon-circle">
+                            <i class="bi bi-heart-fill text-primary icon-primary"></i>
+                        </div>
+                        <h3 class="h4">Save a Life</h3>
+                        <p class="text-muted mb-0">When you adopt, you're giving a deserving pet a second chance at a happy life.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="rounded-circle bg-success bg-opacity-10 mb-3 d-inline-flex justify-content-center align-items-center icon-circle">
+                            <i class="bi bi-house-heart-fill text-success icon-success"></i>
+                        </div>
+                        <h3 class="h4">Find Your Match</h3>
+                        <p class="text-muted mb-0">We'll help you find the perfect companion to match your lifestyle and preferences.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="rounded-circle bg-warning bg-opacity-10 mb-3 d-inline-flex justify-content-center align-items-center icon-circle">
+                            <i class="bi bi-people-fill text-warning icon-warning"></i>
+                        </div>
+                        <h3 class="h4">Join Our Community</h3>
+                        <p class="text-muted mb-0">Become part of a caring community of pet lovers who support each other.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Featured Pets Section -->
@@ -147,44 +205,44 @@
 
         <div id="eventsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
             <div class="carousel-inner">
-                <?php 
+                <?php
                 // foreach ($events as $index => $event): 
-                    $event = array_chunk($events, 3); // 3 items per slide
-                    foreach ($event as $index => $event):
-                    ?>
+                $event = array_chunk($events, 3); // 3 items per slide
+                foreach ($event as $index => $event):
+                ?>
                     <!-- <div class="col-md-4"> -->
                     <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
                         <div class="row justify-content-center">
-                        <?php foreach($event as $item): ?>
-                            <div class="col-md-4">
-                                <div class="event-card">
-                                    <div class="card-inner">
-                                        <div class="card-front">
-                                            <h3><?= htmlspecialchars($item["title"]) ?></h3>
-                                            <p>📅 <?= htmlspecialchars($item["date"]) ?></p>
-                                            <p>⏰ <?= htmlspecialchars($item["time"]) ?></p>
-                                            <p>📍<?= htmlspecialchars($item["venue"]) ?></p>
+                            <?php foreach ($event as $item): ?>
+                                <div class="col-md-4">
+                                    <div class="event-card">
+                                        <div class="card-inner">
+                                            <div class="card-front">
+                                                <h3><?= htmlspecialchars($item["title"]) ?></h3>
+                                                <p>📅 <?= htmlspecialchars($item["date"]) ?></p>
+                                                <p>⏰ <?= htmlspecialchars($item["time"]) ?></p>
+                                                <p>📍<?= htmlspecialchars($item["venue"]) ?></p>
+                                            </div>
+                                            <div class="card-back">
+                                                <p><?= htmlspecialchars($item["details"]) ?></p>
+                                                <form method="POST" action=/event>
+                                                    <input type="hidden" name="event_id" id=event value="<?= $item["id"] ?>">
+                                                    <input type="hidden" name="action" value="register">
+                                                    <button type=submit class="btn btn-outline-light">Register</button>
+                                                </form>
+
+                                            </div>
                                         </div>
                                         <div class="card-back">
-                                            <p><?= htmlspecialchars($item["details"]) ?></p>    
-                                            <form method="POST" action=/event>
-                                                <input type="hidden" name="event_id" id=event value="<?= $item["id"]?>">
-                                                <input type="hidden" name="action" value="register">
-                                                <button type=submit class="btn btn-outline-light">Register</button>
-                                            </form>
-
+                                            <p><?= htmlspecialchars($event["details"]) ?></p>
+                                            <a href="<?= htmlspecialchars($event["link"]) ?>" class="btn btn-outline-light">View Details</a>
                                         </div>
                                     </div>
-                                    <div class="card-back">
-                                        <p><?= htmlspecialchars($event["details"]) ?></p>
-                                        <a href="<?= htmlspecialchars($event["link"]) ?>" class="btn btn-outline-light">View Details</a>
-                                    </div>
                                 </div>
-                            </div>
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
                         </div>
                     </div>
-                    <?php endforeach; ?>
+                <?php endforeach; ?>
             </div>
 
             <!-- Carousel Controls -->
