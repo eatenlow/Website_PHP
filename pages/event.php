@@ -45,23 +45,47 @@
         <!-- Registered Events -->
         &nbsp;
         <?php if (isset($_SESSION['id'])): ?>
-            <h3>My Registered Events</h3>
-            <table style="width:70%;">
-                <?php if (empty($registered_events)): ?>
-                    <p>You have not registered for any events.</p>
-                <?php else: ?>
-                    <?php foreach ($registered_events as $event): ?>
-                        <tr>
-                            <td class="col-1"><?= htmlspecialchars($event->event_name) ?></td>
-                            <form method="POST" action="/event" style="display:inline;">
-                                <input type="hidden" name="event_id" value="<?= $event->event_id ?>">
-                                <input type="hidden" name="action" value="cancel">
-                                <td class="col-1"><button type="submit" class="btn btn-danger">Cancel</button></td>
-                            </form>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </table>
+            <section class="my-4">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="h4 mb-0"><i class="bi bi-calendar-check me-2"></i>My Registered Events</h3>
+                    </div>
+                    <div class="card-body">
+                        <?php if (empty($registered_events)): ?>
+                            <p class="mb-0 text-muted"><i class="bi bi-info-circle me-2"></i>You have not registered for any events.</p>
+                        <?php else: ?>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Event</th>
+                                            <th class="text-end">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($registered_events as $event): ?>
+                                            <tr>
+                                                <td class="align-middle">
+                                                    <span class="fw-medium"><?= htmlspecialchars($event->event_name) ?></span>
+                                                </td>
+                                                <td class="text-end">
+                                                    <form method="POST" action="/event" style="display:inline;">
+                                                        <input type="hidden" name="event_id" value="<?= $event->event_id ?>">
+                                                        <input type="hidden" name="action" value="cancel">
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                            <i class="bi bi-x-circle me-1"></i>Cancel
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </section>
         <?php endif; ?>
 
         <!-- Register for New Events -->

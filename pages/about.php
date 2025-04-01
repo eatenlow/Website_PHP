@@ -80,7 +80,7 @@
             <div class="col-md-4">
                 <i class="bi bi-chat-square-text display-4"></i>
                 <h4>Step 2: Apply & Connect</h4>
-                <p>Submit an adoption application and get in touch with the pet’s foster home or shelter.</p>
+                <p>Submit an adoption application and we will get back to you.</p>
             </div>
             <div class="col-md-4">
                 <i class="bi bi-house-heart display-4"></i>

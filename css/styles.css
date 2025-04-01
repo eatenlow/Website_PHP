@@ -199,6 +199,44 @@
     }
 }
 
+/* Events page */
+
+/* CSS ENHANCEMENTS for implementions #2 and #3 */
+
+/* Alert styling */
+.alert {
+    border-left: 4px solid;
+    margin-bottom: 1.5rem;
+}
+
+.alert-success {
+    border-left-color: #28a745;
+}
+
+.alert-info {
+    border-left-color: #17a2b8;
+}
+
+/* Improve card styling */
+.card {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    padding: 1rem;
+}
+
+.shadow-sm {
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+}
+
+/* Table improvements */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, .05);
+}
+
 /* About us page */
 .map-container iframe {
     border-radius: 10px;
