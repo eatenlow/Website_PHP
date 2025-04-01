@@ -7,7 +7,7 @@
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
     ?>
-
+    <title> PetAdopt - Find Your New Best Friend</title>
     <script src="JS/main.js"></script>
 
     <?php
@@ -226,16 +226,12 @@
                                             <div class="card-back">
                                                 <p><?= htmlspecialchars($item["details"]) ?></p>
                                                 <form method="POST" action=/event>
-                                                    <input type="hidden" name="event_id" id=event value="<?= $item["id"] ?>">
+                                                    <input type="hidden" name="event_id" value="<?= $item["id"] ?>">
                                                     <input type="hidden" name="action" value="register">
                                                     <button type=submit class="btn btn-outline-light">Register</button>
                                                 </form>
 
                                             </div>
-                                        </div>
-                                        <div class="card-back">
-                                            <p><?= htmlspecialchars($event["details"]) ?></p>
-                                            <a href="<?= htmlspecialchars($event["link"]) ?>" class="btn btn-outline-light">View Details</a>
                                         </div>
                                     </div>
                                 </div>

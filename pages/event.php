@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events</title>
+    <title>Register for Events</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
@@ -19,26 +19,25 @@
         <?php
         require 'backend/event_info_retrieve.php';
 
-    if (!isset($_SESSION['id'])) {
-        // echo "<p style='color:red;'> Please <a href='/login'>log in</a>to register for events.</p>";
-        echo '<div class="alert alert-info text-center p-3 mb-4">';
-        echo '<i class="bi bi-info-circle-fill me-2"></i>';
-        echo '<strong>You need to be logged in to register for events.</strong>';
-        echo '<a href="/login" class="btn btn-primary ms-3">Log In Now</a>';
-        echo '</div>';
-        $events = fetchAllEvents();
-        // exit();
-    }
-    else{
-        require 'backend/event_register.php';
-        $user_id = $_SESSION['id'];
+        if (!isset($_SESSION['id'])) {
+            // echo "<p style='color:red;'> Please <a href='/login'>log in</a>to register for events.</p>";
+            echo '<div class="alert alert-info text-center p-3 mb-4">';
+            echo '<i class="bi bi-info-circle-fill me-2"></i>';
+            echo '<strong>You need to be logged in to register for events.</strong>';
+            echo '<a href="/login" class="btn btn-primary ms-3">Log In Now</a>';
+            echo '</div>';
+            $events = fetchAllEvents();
+            // exit();
+        } else {
+            require 'backend/event_register.php';
+            $user_id = $_SESSION['id'];
 
-        // // Handle form actions
-        handleEventAction($user_id);
-        
-        // Get event data
-        $events = fetchUnregisteredEvents($user_id);
-        $registered_events = fetchUserRegistrations($user_id);
+            // // Handle form actions
+            handleEventAction($user_id);
+
+            // Get event data
+            $events = fetchUnregisteredEvents($user_id);
+            $registered_events = fetchUserRegistrations($user_id);
         }
 
         ?>
@@ -101,15 +100,15 @@
                             <div class="card-inner">
                                 <div class="card-front">
                                     <h3><?= $event->event_name ?></h3>
-                                    <p><?= $event->event_date ?></p>
-                                    <p><?= $event->event_time ?></p>
-                                    <p><?= $event->event_venue ?></p>
+                                    <p>📅<?= $event->event_date ?></p>
+                                    <p>⏰<?= $event->event_time ?></p>
+                                    <p>📍<?= $event->event_venue ?></p>
                                 </div>
                                 <div class="card-back">
                                     <p><?= $event->event_details ?></p>
                                     <?php if (isset($_SESSION['id'])): ?>
                                         <form method="POST" action=/event>
-                                            <input type="hidden" name="event_id" id=event value="<?= $event->event_id ?>">
+                                            <input type="hidden" name="event_id" value="<?= $event->event_id ?>">
                                             <input type="hidden" name="action" value="register">
                                             <button type=submit class="btn btn-outline-light">Register</button>
                                         </form>
