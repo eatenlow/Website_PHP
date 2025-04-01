@@ -88,6 +88,10 @@ switch ($request) {
         require __DIR__ . $viewDir . 'event.php';
         break;
 
+    case '/cart':
+        require __DIR__ . $viewDir . 'cart.php';
+        break;
+
         
     default:
         http_response_code(404);

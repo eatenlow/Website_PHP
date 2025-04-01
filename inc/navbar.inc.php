@@ -21,6 +21,7 @@ session_start();
                 <li class="nav-item"><a class="nav-link" href="/listings" aria-label='See all listings'>Listings</a></li>
                 <li class="nav-item"><a class="nav-link" href="/about" aria-label='Go to About Us page'>About Us</a></li>
                 <li class="nav-item"><a class="nav-link" href="/event" aria-label='See all Events'>Events</a></li>
+                <li class="nav-item"><a class="nav-link" href="/cart" aria-label='Cart'>Cart</a></li>
                 <?php
                 if (isset($_SESSION["admin"]) && isset($_SESSION["login"])) {
                     echo "

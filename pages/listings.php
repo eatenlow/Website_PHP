@@ -163,7 +163,13 @@ function displayListings($conn) {
             echo '<strong>Adoption Cost:</strong> $' . htmlspecialchars($row['adopt_cost']) . '<br>';
             echo '<strong>Description:</strong> ' . $displayText;
             echo '</p>';
-            echo '<a href="/pet/' . htmlspecialchars($row['pet_ID']) . '" class="btn btn-primary">Adopt Now</a>';
+            echo '<form action="backend/add_to_cart.php" method="post" class="d-inline">';
+            echo '<input type="hidden" name="pet_id" value="' . htmlspecialchars($row['pet_ID']) . '">';
+            echo '<input type="hidden" name="pet_name" value="' . htmlspecialchars($row['pet_name']) . '">';
+            echo '<input type="hidden" name="pet_price" value="' . htmlspecialchars($row['adopt_cost']) . '">';
+            echo '<input type="hidden" name="pet_image" value="' . htmlspecialchars($row['image']) . '">'; 
+            echo '<button type="submit" class="btn btn-primary">Adopt Now</button>';
+            echo '</form>';
             echo '</div>';
             echo '</div>';
             echo '</div>';
