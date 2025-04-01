@@ -72,6 +72,8 @@
         $pet_labels[] = $row['pet_type'];
         $pet_data[] = $row['count'];
         }
+
+        
     ?>    
 
     <title>Admin Dashboard</title>
@@ -86,15 +88,18 @@
         <!-- Main Content -->
         <main class="main-content flex-grow-1 p-4">
             <div class="container-fluid">
-                <div class="dashboard-header d-flex justify-content-between align-items-center">
-                    <div>
-                        <h1 class="mb-0">Dashboard Overview</h1>
-                        <p class="text-muted mb-0">Welcome back, Admin</p>
-                    </div>
-                    <div class="text-end">
-                        <small class="text-muted">Last updated: <?php echo date('F j, Y, g:i a'); ?></small>
-                    </div>
+            <div class="dashboard-header d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="mb-0">Dashboard Overview</h1>
+                    <p class="text-muted mb-0">Welcome back, Admin</p>
                 </div>
+                <div class="text-end">
+                    <button id="refreshDashboard" class="btn btn-sm btn-outline-light me-2">
+                        <i class="bi bi-arrow-clockwise"></i> Refresh
+                    </button>
+                    <small class="text-muted">Last updated: <span id="lastUpdated"><?php echo date('F j, Y, g:i a'); ?></span></small>
+                </div>
+            </div>
 
                 <div class="row mb-4">
                     <!-- Total Users Card with Age Pie Chart -->
@@ -111,7 +116,7 @@
                                 </div>
                             </div>
                             <div class="card-footer d-flex justify-content-between align-items-center">
-                                <span>Age Distribution</span>
+                                <span>Manage Users</span>
                                 <a href="/manageUser" class="text-white"><i class="bi bi-arrow-right-circle"></i></a>
                             </div>
                         </div>
@@ -131,7 +136,7 @@
                                 </div>
                             </div>
                             <div class="card-footer d-flex justify-content-between align-items-center">
-                                <span>Pet Types</span>
+                                <span>Manage Listings</span>
                                 <a href="/manageList" class="text-white"><i class="bi bi-arrow-right-circle"></i></a>
                             </div>
                         </div>
