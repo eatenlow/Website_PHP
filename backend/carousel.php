@@ -22,7 +22,8 @@ function getOGImage($url)
     // Improved regex for extracting og:image
     preg_match('/<meta[^>]+property=["\']og:image["\'][^>]+content=["\'](.*?)["\']/i', $html, $matches);
     if (!empty($matches[1])) {
-        return $matches[1]; // Return OG image if found
+        // Encode the URL to make it safe for HTML attributes
+        return str_replace(' ', '%20', $matches[1]); // Return the OG image URL
     }
 
     // If no OG image, try extracting first <img> tag

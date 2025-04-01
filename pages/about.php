@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | PetAdopt</title>
+    <title>About PetAdopt - Our Mission & Vision</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
@@ -124,7 +124,7 @@
         <div class="map-container text-center">
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.6031349806262!2d103.90816577515022!3d1.4141430985725234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da15ac1f854ff5%3A0x681080ba33c348ca!2sSingapore%20Institute%20of%20Technology%20(Campus%20Heart)%20(U%2FC)!5e0!3m2!1sen!2ssg!4v1742288281769!5m2!1sen!2ssg"
-                width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy">
+                style="width: 100%; height: 400px; border: 0;" allowfullscreen="" loading="lazy">
             </iframe>
         </div>
     </section>
