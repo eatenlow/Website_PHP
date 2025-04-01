@@ -678,10 +678,26 @@ a {
     opacity: 0.9;
 }
 
-/* Events Timeline Chart */
-.events-timeline .chart-point {
-    stroke: white;
-    stroke-width: 2px;
+/* Refresh Button */
+#refreshDashboard {
+    transition: all 0.2s ease;
+}
+#refreshDashboard:hover {
+    background-color: #f8f9fa;
+    border-color: #6c757d;
+    color: #495057;
+}
+#refreshDashboard:focus {
+    box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.5);
+}
+
+/* Loading state */
+.refreshing {
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 

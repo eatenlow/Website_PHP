@@ -28,10 +28,8 @@ $conn->close();
 </head>
 <body>
     <div class="d-flex">
-        <nav>
             <!-- Include sidebar -->
             <?php include "inc/sidebar.inc.php"; ?>
-        </nav>
         
         <!-- Main Content -->
         <main class="main-content flex-grow-1 p-4">

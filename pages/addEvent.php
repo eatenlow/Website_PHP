@@ -4,6 +4,7 @@
             include 'inc/head.inc.php';
             include 'inc/navbar.inc.php'; 
         ?>
+        <title>Add New Event - Admin Panel</title>
     </head>
     <body>
         <main class="container-lg w-60 w-md-80 w-sm-90 w-100 mx-auto">

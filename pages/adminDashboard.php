@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <?php 
         include 'inc/head.inc.php';
@@ -94,9 +94,10 @@
                     <p class="text-muted mb-0">Welcome back, Admin</p>
                 </div>
                 <div class="text-end">
-                    <button id="refreshDashboard" class="btn btn-sm btn-outline-light me-2">
-                        <i class="bi bi-arrow-clockwise"></i> Refresh
-                    </button>
+                <button id="refreshDashboard" class="btn btn-sm btn-outline-secondary me-2"
+                        aria-label="Refresh dashboard data">
+                    <i class="bi bi-arrow-clockwise"></i> Refresh
+                </button>
                     <small class="text-muted">Last updated: <span id="lastUpdated"><?php echo date('F j, Y, g:i a'); ?></span></small>
                 </div>
             </div>
@@ -107,7 +108,7 @@
                         <div class="stat-card bg-primary bg-gradient text-white h-100">
                             <div class="card-body">
                                 <i class="bi bi-people-fill card-icon"></i>
-                                <h5 class="card-title">Total Users</h5>
+                                <h2 class="card-title">Total Users</h2>
                                 <h2 class="card-value"><?php echo $total_users; ?></h2>
                                 
                                 <!-- Age Distribution Pie Chart -->
@@ -117,7 +118,9 @@
                             </div>
                             <div class="card-footer d-flex justify-content-between align-items-center">
                                 <span>Manage Users</span>
-                                <a href="/manageUser" class="text-white"><i class="bi bi-arrow-right-circle"></i></a>
+                                    <a href="/manageUser" class="text-white" aria-label="Manage users">
+                                    <i class="bi bi-arrow-right-circle"></i>
+                                </a>
                             </div>
                         </div>
                     </div>                    
@@ -127,7 +130,7 @@
                         <div class="stat-card bg-success bg-gradient text-white h-100">
                             <div class="card-body">
                                 <i class="bi bi-heart-fill card-icon"></i>
-                                <h5 class="card-title">Total Listings</h5>
+                                <h2 class="card-title">Total Listings</h2>
                                 <h2 class="card-value"><?php echo $total_listings; ?></h2>
                                 
                                 <!-- Pet Distribution Chart -->
@@ -137,7 +140,9 @@
                             </div>
                             <div class="card-footer d-flex justify-content-between align-items-center">
                                 <span>Manage Listings</span>
-                                <a href="/manageList" class="text-white"><i class="bi bi-arrow-right-circle"></i></a>
+                                    <a href="/manageList" class="text-white" aria-label="Manage pet listings">
+                                    <i class="bi bi-arrow-right-circle"></i>
+                                </a>
                             </div>
                         </div>
                     </div>              
@@ -147,12 +152,14 @@
                         <div class="stat-card bg-info bg-gradient text-white h-100">
                             <div class="card-body">
                                 <i class="bi bi-calendar-event-fill card-icon"></i>
-                                <h5 class="card-title">Total Events</h5>
+                                <h2 class="card-title">Total Events</h2>
                                 <h2 class="card-value"><?php echo $total_events; ?></h2>
                             </div>
                             <div class="card-footer d-flex justify-content-between align-items-center">
                                 <span>Manage Events</span>
-                                <a href="/manageEvents" class="text-white"><i class="bi bi-arrow-right-circle"></i></a>
+                                <a href="/manageEvents" class="text-white" aria-label="Manage events">
+                                <i class="bi bi-arrow-right-circle"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
