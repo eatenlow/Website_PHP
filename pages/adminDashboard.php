@@ -29,8 +29,35 @@
         $event_result = mysqli_query($conn, $event_sql);
         $event_row = mysqli_fetch_assoc($event_result);
         $total_events = $event_row['total_events'];
+        
+        // Query for age distribution
+        $age_sql = "SELECT 
+                      CASE
+                        WHEN TIMESTAMPDIFF(YEAR, dateofbirth, CURDATE()) BETWEEN 0 AND 17 THEN '0-17'
+                        WHEN TIMESTAMPDIFF(YEAR, dateofbirth, CURDATE()) BETWEEN 18 AND 25 THEN '18-25'
+                        WHEN TIMESTAMPDIFF(YEAR, dateofbirth, CURDATE()) BETWEEN 26 AND 35 THEN '26-35'
+                        WHEN TIMESTAMPDIFF(YEAR, dateofbirth, CURDATE()) BETWEEN 36 AND 50 THEN '36-50'
+                        ELSE '50+'
+                      END as age_group,
+                      COUNT(*) as count
+                    FROM world_of_pets_members
+                    WHERE dateofbirth IS NOT NULL
+                    GROUP BY age_group
+                    ORDER BY age_group";
+        $age_result = mysqli_query($conn, $age_sql);
+        
+        $age_labels = [];
+        $age_data = [];
+        $age_colors = ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b'];
+        
+        while ($row = mysqli_fetch_assoc($age_result)) {
+            $age_labels[] = $row['age_group'];
+            $age_data[] = $row['count'];
+        }
     ?>    
     <title>Admin Dashboard</title>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="d-flex">
@@ -51,21 +78,25 @@
                 </div>
 
                 <div class="row mb-4">
-                    <!-- Total Users Card -->
+                    <!-- Total Users Card with Age Pie Chart -->
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="stat-card bg-primary bg-gradient text-white h-100">
                             <div class="card-body">
                                 <i class="bi bi-people-fill card-icon"></i>
                                 <h5 class="card-title">Total Users</h5>
                                 <h2 class="card-value"><?php echo $total_users; ?></h2>
+                                
+                                <!-- Age Distribution Pie Chart -->
+                                <div class="age-chart-container">
+                                    <canvas id="ageDistributionChart"></canvas>
+                                </div>
                             </div>
                             <div class="card-footer d-flex justify-content-between align-items-center">
-                                <span>Manage Users</span>
+                                <span>Age Distribution</span>
                                 <a href="/manageUser" class="text-white"><i class="bi bi-arrow-right-circle"></i></a>
                             </div>
                         </div>
-                    </div>
-                    
+                    </div>                    
                     <!-- Total Listings Card -->
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="stat-card bg-success bg-gradient text-white h-100">
@@ -100,5 +131,63 @@
         </main>
     </div>
     <?php include "inc/footer.inc.php"; ?>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Age Distribution Pie Chart with proper tooltips
+    const ageCtx = document.getElementById('ageDistributionChart').getContext('2d');
+    new Chart(ageCtx, {
+        type: 'pie',
+        data: {
+            labels: <?php echo json_encode($age_labels); ?>,
+            datasets: [{
+                data: <?php echo json_encode($age_data); ?>,
+                backgroundColor: [
+                    'rgba(255,255,255,0.7)',
+                    'rgba(255,255,255,0.5)',
+                    'rgba(255,255,255,0.3)',
+                    'rgba(255,255,255,0.2)',
+                    'rgba(255,255,255,0.1)'
+                ],
+                borderColor: 'rgba(255,255,255,0.2)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        color: 'white',
+                        font: {
+                            weight: '500'
+                        },
+                        padding: 15,
+                        usePointStyle: true,
+                        pointStyle: 'circle'
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    usePointStyle: true,
+                    callbacks: {
+                        title: function(context) {
+                            return context[0].label; // Just return the label text
+                        },
+                        label: function(context) {
+                            const total = <?php echo $total_users; ?>;
+                            const percentage = Math.round((context.raw / total) * 100);
+                            return `${context.raw} users (${percentage}%)`; // Plain text format
+                        }
+                    }
+                }
+            },
+            cutout: '0%'
+        }
+    });
+});
+</script>
 </body>
 </html>
