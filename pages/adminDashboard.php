@@ -54,7 +54,26 @@
             $age_labels[] = $row['age_group'];
             $age_data[] = $row['count'];
         }
+
+        // Query for pet type distribution
+        $pet_sql = "SELECT 
+        pet_type, 
+        COUNT(*) as count 
+        FROM pets 
+        GROUP BY pet_type 
+        ORDER BY count DESC";
+        $pet_result = mysqli_query($conn, $pet_sql);
+
+        $pet_labels = [];
+        $pet_data = [];
+        $pet_colors = ['#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b', '#4e73df'];
+
+        while ($row = mysqli_fetch_assoc($pet_result)) {
+        $pet_labels[] = $row['pet_type'];
+        $pet_data[] = $row['count'];
+        }
     ?>    
+
     <title>Admin Dashboard</title>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -97,21 +116,27 @@
                             </div>
                         </div>
                     </div>                    
-                    <!-- Total Listings Card -->
+
+                    <!-- Total Listings Card with Pet Distribution -->
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="stat-card bg-success bg-gradient text-white h-100">
                             <div class="card-body">
                                 <i class="bi bi-heart-fill card-icon"></i>
                                 <h5 class="card-title">Total Listings</h5>
                                 <h2 class="card-value"><?php echo $total_listings; ?></h2>
+                                
+                                <!-- Pet Distribution Chart -->
+                                <div class="age-chart-container">
+                                    <canvas id="petDistributionChart"></canvas>
+                                </div>
                             </div>
                             <div class="card-footer d-flex justify-content-between align-items-center">
-                                <span>Manage Listings</span>
+                                <span>Pet Types</span>
                                 <a href="/manageList" class="text-white"><i class="bi bi-arrow-right-circle"></i></a>
                             </div>
                         </div>
-                    </div>
-                    
+                    </div>              
+
                     <!-- Total Events Card -->
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="stat-card bg-info bg-gradient text-white h-100">
@@ -188,6 +213,57 @@
         }
     });
 });
+
+    // Pet Distribution Chart
+    const petCtx = document.getElementById('petDistributionChart').getContext('2d');
+    new Chart(petCtx, {
+        type: 'bar',
+        data: {
+            labels: <?php echo json_encode($pet_labels); ?>,
+            datasets: [{
+                label: 'Listings',
+                data: <?php echo json_encode($pet_data); ?>,
+                backgroundColor: 'rgba(255,255,255,0.7)',
+                borderColor: 'rgba(255,255,255,0.2)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.raw} listings (${Math.round((context.raw/<?php echo $total_listings; ?>)*100)}%)`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(255,255,255,0.1)'
+                    },
+                    ticks: {
+                        color: 'rgba(255,255,255,0.7)'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: 'rgba(255,255,255,0.7)'
+                    }
+                }
+            }
+        }
+    });
 </script>
 </body>
 </html>
