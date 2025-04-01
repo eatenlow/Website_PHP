@@ -40,6 +40,15 @@
             $events[] = $row;
         }
     }
+    // Fetch featured pets
+    $featuredPets = [];
+    $sql = "SELECT pet_ID, pet_name, pet_type, description, image FROM pets ORDER BY pet_ID DESC LIMIT 3";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $featuredPets[] = $row;
+        }
+    }
 
     // Close the connection
     $conn->close();
@@ -68,42 +77,41 @@
     <section class="container my-5">
         <h2 class="text-center">Featured Pets</h2>
         <div class="row">
-            <div class="col-md-4">
+            <?php
+            // Use the pets data we fetched at the top of the file
+            foreach ($featuredPets as $pet) {
+                // Get a short description (first 100 characters)
+                $shortDesc = substr($pet['description'], 0, 100);
+                if (strlen($pet['description']) > 100) {
+                    $shortDesc .= '...';
+                }
+
+                echo '<div class="col-md-4">
                 <div class="card">
-                    <div class="image-container">
-                        <img src="images/poodle_large.jpg" class="card-img-top" alt="Dog">
-                    </div>
+                    <div class="image-container">';
+
+                // Check if image exists
+                if (!empty($pet['image'])) {
+                    echo '<img src="listingImages/' . htmlspecialchars($pet['image']) . '" class="card-img-top" alt="' . htmlspecialchars($pet['pet_name']) . '">';
+                } else {
+                    // Fallback to default images based on pet type
+                    $defaultImage = 'poodle_large.jpg'; // Default to dog
+                    if (strtolower($pet['pet_type']) == 'cat') {
+                        $defaultImage = 'calico_large.jpg';
+                    }
+                    echo '<img src="images/' . $defaultImage . '" class="card-img-top" alt="' . htmlspecialchars($pet['pet_name']) . '">';
+                }
+
+                echo '</div>
                     <div class="card-body text-center">
-                        <h5 class="card-title">Buddy</h5>
-                        <p class="card-text">A playful golden retriever looking for a home.</p>
-                        <a href="/listings" class="btn btn-success">Adopt Now</a>
+                        <h5 class="card-title">' . htmlspecialchars($pet['pet_name']) . '</h5>
+                        <p class="card-text">' . htmlspecialchars($shortDesc) . '</p>
+                        <a href="/listings?pet=' . $pet['pet_ID'] . '" class="btn btn-success">Adopt Now</a>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="image-container">
-                        <img src="images/calico_large.jpg" class="card-img-top" alt="Cat">
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Mittens</h5>
-                        <p class="card-text">A cute and cuddly kitten waiting for a family.</p>
-                        <a href="/listings" class="btn btn-success">Adopt Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="image-container">
-                        <img src="images/tabby_large.jpg" class="card-img-top" alt="Dog">
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Charlie</h5>
-                        <p class="card-text">An energetic beagle who loves to play.</p>
-                        <a href="/listings" class="btn btn-success">Adopt Now</a>
-                    </div>
-                </div>
-            </div>
+            </div>';
+            }
+            ?>
         </div>
     </section>
 
