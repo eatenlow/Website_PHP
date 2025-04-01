@@ -1,7 +1,7 @@
 <?php
 require_once 'backend/db.php';
 global $result, $stmt, $conn;
-$stmt = $conn->prepare("SELECT * FROM pets");
+$stmt = $conn->prepare("SELECT * FROM events");
 
 if (!$stmt->execute()){
     $errorMsg = "Execute failed: (" . $stmt->errno . ") ";
@@ -35,8 +35,8 @@ $conn->close();
         <main class="main-content flex-grow-1 p-4">
             <div class="container-fluid">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h1><strong>Edit Listings</strong></h1>
-                    <a href="/addList" class='btn btn-success'>Add New Listing</a>
+                    <h1><strong>Edit Events</strong></h1>
+                    <a href="/addEvent" class='btn btn-success'>Add New Event</a>
                 </div>
                 
                 <?php if ($result->num_rows > 0): ?>
@@ -44,31 +44,28 @@ $conn->close();
                     <table class="table table-striped">
                         <thead class="table-light">
                             <tr>
-                                <th>Pet ID</th>
-                                <th>Pet Name</th>
-                                <th>Pet Type</th>
-                                <th>Breed</th>
-                                <th>Age</th>
-                                <th>Gender</th>
-                                <th>Adoption Cost</th>
-                                <th>Actions</th>
+                                <th>Event ID</th>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Venue</th>
+                                <th>Details</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php while($row = $result->fetch_assoc()): ?>
                             <tr>
-                                <td><?= htmlspecialchars($row["pet_ID"]) ?></td>
-                                <td><?= htmlspecialchars($row["pet_name"]) ?></td>
-                                <td><?= htmlspecialchars($row["pet_type"]) ?></td>
-                                <td><?= htmlspecialchars($row["breed"]) ?></td>
-                                <td><?= htmlspecialchars($row["age"]) ?></td>
-                                <td><?= htmlspecialchars($row["gender"]) ?></td>
-                                <td><?= htmlspecialchars($row["adopt_cost"]) ?></td>
+                                <td><?= htmlspecialchars($row["id"]) ?></td>
+                                <td><?= htmlspecialchars($row["title"]) ?></td>
+                                <td><?= htmlspecialchars($row["date"]) ?></td>
+                                <td><?= htmlspecialchars($row["time"]) ?></td>
+                                <td><?= htmlspecialchars($row["venue"]) ?></td>
+                                <td><?= htmlspecialchars($row["details"]) ?></td>
                                 <td>
-                                    <a href="/editList?id=<?= $row["pet_ID"] ?>">
+                                    <a href="/editEvent?id=<?= $row["id"] ?>">
                                         <i class="bi bi-pencil-square text-primary"></i>
                                     </a>
-                                    <form method="post" action="backend/delete_listing.php" style="display:inline;">
+                                    <form method="post" action="backend/delete_event.php" style="display:inline;">
                                         <input type="hidden" name="id" value="<?php echo $row['pet_ID']; ?>">
                                         <button type="submit" class="border-0 bg-transparent p-0" onclick="return confirm('Are you sure?')">
                                             <i class="bi bi-trash-fill text-danger" style="font-size: 1rem;"></i>
@@ -81,7 +78,7 @@ $conn->close();
                     </table>
                 </div>
                 <?php else: ?>
-                    <div class="alert alert-info">No listings found.</div>
+                    <div class="alert alert-info">No Events found.</div>
                 <?php endif; ?>
             </div>
         </main>

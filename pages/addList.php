@@ -13,58 +13,6 @@
             if(!isset($_SESSION["login"]) || ($_SESSION["admin"] != '1')){
                 header("Location: /a");
             }
-            // echo $_SESSION;
-            // function addListing(){
-            //     global $name, $type, $breed, $age, $cost, $gender, $desc, $image, $errorMsg, $success;
-            //     // Create database connection.
-            //     $config = parse_ini_file('/var/www/private/db-config.ini');
-            //     if (!$config){
-            //         $errorMsg = "Failed to read database config file.";
-            //         $success = false;
-            //     }
-            //     else{
-            //         $conn = new mysqli(
-            //         $config['servername'],
-            //         $config['username'],
-            //         $config['password'],
-            //         $config['dbname']
-            //         );
-            //         // Check connection
-            //         if ($conn->connect_error){
-            //             $errorMsg = "Connection failed: " . $conn->connect_error;
-            //             $success = false;
-            //         }
-            //         else{
-            //             $petID = $_GET['id'];
-            //             $_SESSION['edit_pet_id'] = $petID;
-            //             // Prepare the statement:
-            //             $stmt = $conn->prepare("SELECT * FROM pets WHERE pet_ID=?");
-            //             // Bind & execute the query statement:
-            //             $stmt->bind_param("i", $petID);
-            //             $stmt->execute();
-            //             $result = $stmt->get_result();
-            //             if ($result->num_rows > 0){
-            //                 $row = $result->fetch_assoc();
-            //                 $name = $row["pet_name"];
-            //                 $type = $row["pet_type"];
-            //                 $breed = $row['breed'];
-            //                 $age = $row["age"];
-            //                 $cost = $row['adopt_cost'];
-            //                 $gender = $row['gender'];
-            //                 $desc = $row['description'];
-            //                 $image = $row['image'];
-            //             }
-            //             else{
-            //                 // invalid listing ID redirect
-            //                 //header("Location: /a");
-            //                 $success = false;
-            //             }
-            //         $stmt->close();
-            //         }
-            //     $conn->close();
-            //     }
-            // }
-            // getListing();
         ?>
             <form action="../backend/new_listing.php" method="post" enctype="multipart/form-data">
                 <?php 

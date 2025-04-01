@@ -31,6 +31,8 @@ session_start();
                         </li>";
                 }
                 echo 'Initial Working Directory: ' . getcwd() . '<br>';
+                echo $_SESSION['login'];
+                echo $_SESSION["admin"];
                 ?>
             </ul>
 
