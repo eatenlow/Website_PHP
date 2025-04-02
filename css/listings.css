@@ -31,6 +31,8 @@
 .card-title {
     font-size: 1.2rem;
     margin-bottom: 10px;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
 }
 
 .card-text {
@@ -137,10 +139,14 @@
     font-size: 1.8rem;
     cursor: pointer;
     color: #555;
+    font-weight: bold; 
+    background: none; 
+    border: none;
 }
 
 .close-popup:hover {
     color: #000;
+    border: none;
 }
 
 .full-description {

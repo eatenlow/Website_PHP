@@ -155,6 +155,7 @@ function displayListings($conn) {
             echo '<img src="' . dirname(__DIR__).'/listingImages/'.htmlspecialchars($row['image']) . '" class="card-img-top" alt="' . htmlspecialchars($row['pet_name']) . '">';
             echo '<div class="card-body">';
             echo '<h5 class="card-title">' . htmlspecialchars($row['pet_name']) . '</h5>';
+            echo '<h4 class="card-title">' . htmlspecialchars($row['pet_name']) . '</h5>';
             echo '<p class="card-text">';
             echo '<strong>Breed:</strong> ' . htmlspecialchars($row['breed']) . '<br>';
             echo '<strong>Type:</strong> ' . htmlspecialchars($row['pet_type']) . '<br>';
@@ -225,7 +226,13 @@ function renderPagination($paginationInfo) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@14.6.3/distribute/nouislider.min.css">
 </head>
 <body>
+    
+    <header>
+    <h1 class="visually-hidden">Pet Adoption Center</h1>
     <?php include 'inc/navbar.inc.php'; ?>
+    </header>
+
+    <main>
     <section class="container my-5">
         <div class="row">
             <!-- Include the filter sidebar -->
@@ -237,6 +244,8 @@ function renderPagination($paginationInfo) {
                     <h2>Pet Listings</h2>
                     <div class="d-flex align-items-center">
                         <span class="sort-label">Sort by:</span>
+                    <div class="d-flex align-items-center">  
+                        <label for="sort-select" class="sort-label">Sort by:</label>
                         <select id="sort-select" class="form-select" name="sort">
                             <option value="name_asc" <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'name_asc') ? 'selected' : ''; ?>>Name (A-Z)</option>
                             <option value="name_desc" <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'name_desc') ? 'selected' : ''; ?>>Name (Z-A)</option>
@@ -248,6 +257,7 @@ function renderPagination($paginationInfo) {
                     </div>
                 </div>
 
+                <h3 class="visually-hidden">Individual Pets</h3>
                 <div id="listings-container" class="row">
                     <?php
                     $config = parse_ini_file('/var/www/private/db-config.ini');
@@ -278,6 +288,7 @@ function renderPagination($paginationInfo) {
             </div>
         </div>
     </section>
+    </main>
     <?php include "inc/footer.inc.php"; ?>
     <!-- Include the popup functionality -->
     <?php include 'backend/popup.php'; ?>
