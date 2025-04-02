@@ -23,6 +23,10 @@ switch ($request) {
         require __DIR__ . $viewDir . 'login.php';
         break;
 
+    case '/forgot_pass':
+        require __DIR__ . $viewDir . 'checkEmail.php';
+        break;
+
     case '/verify_otp':
         require __DIR__ . $viewDir . 'verify_otp.php';
         break;
