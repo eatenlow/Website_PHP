@@ -154,7 +154,6 @@ function displayListings($conn) {
             echo '<div class="card">';
             echo '<img src="' . dirname(__DIR__).'/listingImages/'.htmlspecialchars($row['image']) . '" class="card-img-top" alt="' . htmlspecialchars($row['pet_name']) . '">';
             echo '<div class="card-body">';
-            echo '<h5 class="card-title">' . htmlspecialchars($row['pet_name']) . '</h5>';
             echo '<h4 class="card-title">' . htmlspecialchars($row['pet_name']) . '</h5>';
             echo '<p class="card-text">';
             echo '<strong>Breed:</strong> ' . htmlspecialchars($row['breed']) . '<br>';
@@ -242,8 +241,6 @@ function renderPagination($paginationInfo) {
             <div class="col-md-9">
                 <div class="sort-container">
                     <h2>Pet Listings</h2>
-                    <div class="d-flex align-items-center">
-                        <span class="sort-label">Sort by:</span>
                     <div class="d-flex align-items-center">  
                         <label for="sort-select" class="sort-label">Sort by:</label>
                         <select id="sort-select" class="form-select" name="sort">

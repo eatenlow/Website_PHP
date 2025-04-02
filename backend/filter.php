@@ -59,11 +59,6 @@ function isFilterActive($paramName, $value = null) {
     return true;
 }
 
-// Function to build the breeds checkboxes
-function renderBreedCheckboxes($conn) {
-    // Get dog breeds
-    $dogBreedsSql = "SELECT DISTINCT breed FROM pets WHERE pet_type = 'Dog' ORDER BY breed";
-    $dogBreedsResult = $conn->query($dogBreedsSql);
 // Function to get filter value with default
 function getFilterValue($paramName, $default = '') {
     return isset($_GET[$paramName]) ? htmlspecialchars($_GET[$paramName]) : $default;
@@ -74,27 +69,6 @@ function renderRadioOption($name, $id, $value, $label, $isDefault = false) {
     $checked = (!isset($_GET[$name]) && $isDefault) || 
                (isset($_GET[$name]) && $_GET[$name] == $value) ? 'checked' : '';
     
-    echo '<div class="breed-category">Dogs</div>';
-    if ($dogBreedsResult->num_rows > 0) {
-        while ($row = $dogBreedsResult->fetch_assoc()) {
-            $breed = htmlspecialchars($row['breed']);
-            $breedId = 'breed-' . preg_replace('/\s+/', '-', strtolower($row['breed']));
-
-            echo '<div class="form-check">';
-            echo '<input class="form-check-input" type="checkbox" name="breeds[]" id="' . $breedId . '" value="' . $breed . '"';
-
-            // Check if this breed is selected in the filter
-            if (isset($_GET['breeds']) && in_array($row['breed'], $_GET['breeds'])) {
-                echo ' checked';
-            }
-            
-            echo '>';
-            echo '<label class="form-check-label" for="' . $breedId . '">' . $breed . '</label>';
-            echo '</div>';
-        }
-    } else {
-        echo '<p>No dog breeds available</p>';
-    }
     echo '<div class="form-check">';
     echo '<input class="form-check-input" type="radio" name="' . $name . '" id="' . $id . '" value="' . $value . '" ' . $checked . '>';
     echo '<label class="form-check-label" for="' . $id . '">' . $label . '</label>';
@@ -107,23 +81,8 @@ function renderBreedCheckboxes($conn) {
     $sql = "SELECT DISTINCT pet_type, breed FROM pets ORDER BY pet_type, breed";
     $result = $conn->query($sql);
     
-    // Get cat breeds
-    $catBreedsSql = "SELECT DISTINCT breed FROM pets WHERE pet_type = 'Cat' ORDER BY breed";
-    $catBreedsResult = $conn->query($catBreedsSql);
     $currentType = null;
     
-    echo '<div class="breed-category">Cats</div>';
-    if ($catBreedsResult->num_rows > 0) {
-        while ($row = $catBreedsResult->fetch_assoc()) {
-            $breed = htmlspecialchars($row['breed']);
-            $breedId = 'breed-' . preg_replace('/\s+/', '-', strtolower($row['breed']));
-
-            echo '<div class="form-check">';
-            echo '<input class="form-check-input" type="checkbox" name="breeds[]" id="' . $breedId . '" value="' . $breed . '"';
-
-            // Check if this breed is selected in the filter
-            if (isset($_GET['breeds']) && in_array($row['breed'], $_GET['breeds'])) {
-                echo ' checked';
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $petType = $row['pet_type'];
@@ -139,9 +98,6 @@ function renderBreedCheckboxes($conn) {
                 echo '<div class="breed-list-container" data-pet-type="' . $petType . '">';
             }
             
-            echo '>';
-            echo '<label class="form-check-label" for="' . $breedId . '">' . $breed . '</label>';
-            echo '</div>';
             renderBreedCheckbox($breed, $petType);
         }
         
@@ -149,7 +105,6 @@ function renderBreedCheckboxes($conn) {
             echo '</div>'; // Close the last breed list container
         }
     } else {
-        echo '<p>No cat breeds available</p>';
         echo '<p>No breeds available</p>';
     }
 }
@@ -178,17 +133,13 @@ $conn = getDatabaseConnection();
 ?>
 
 <!-- Filter Sidebar HTML -->
-<div class="col-md-3 filter-sidebar">
 <aside class="col-md-3 filter-sidebar" aria-label="Filter options">
     <form id="filter-form" method="GET">
 
-    <div class="filter-card">
         <div class="filter-card">
             <div class="filter-title">Search</div>
             <div class="filter-section">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="search" id="search-input" placeholder="Search pet names..." 
-                    value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
                     <label for="search-input" class="visually-hidden">Search Pet Names</label>
                     <input type="text" class="form-control" name="search" id="search-input" 
                            placeholder="Search pet names..." 
@@ -200,18 +151,6 @@ $conn = getDatabaseConnection();
         <div class="filter-card">
             <div class="filter-title">Pet Type</div>
             <div class="filter-section">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="pet_type" id="all-pets" value="all" <?php echo (!isset($_GET['pet_type']) || $_GET['pet_type'] == 'all') ? 'checked' : ''; ?>>
-                    <label class="form-check-label" for="all-pets">All Pets</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="pet_type" id="dogs-only" value="Dog" <?php echo (isset($_GET['pet_type']) && $_GET['pet_type'] == 'Dog') ? 'checked' : ''; ?>>
-                    <label class="form-check-label" for="dogs-only">Dogs Only</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="pet_type" id="cats-only" value="Cat" <?php echo (isset($_GET['pet_type']) && $_GET['pet_type'] == 'Cat') ? 'checked' : ''; ?>>
-                    <label class="form-check-label" for="cats-only">Cats Only</label>
-                </div>
                 <?php 
                 // Render the "All Pets" option
                 renderRadioOption('pet_type', 'all-pets', 'all', 'All Pets', true);
@@ -235,18 +174,6 @@ $conn = getDatabaseConnection();
         <div class="filter-card">
             <div class="filter-title">Gender</div>
             <div class="filter-section">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gender" id="all-genders" value="all" <?php echo (!isset($_GET['gender']) || $_GET['gender'] == 'all') ? 'checked' : ''; ?>>
-                    <label class="form-check-label" for="all-genders">All</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gender" id="male" value="Male" <?php echo (isset($_GET['gender']) && $_GET['gender'] == 'Male') ? 'checked' : ''; ?>>
-                    <label class="form-check-label" for="male">Male</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gender" id="female" value="Female" <?php echo (isset($_GET['gender']) && $_GET['gender'] == 'Female') ? 'checked' : ''; ?>>
-                    <label class="form-check-label" for="female">Female</label>
-                </div>
                 <?php
                 renderRadioOption('gender', 'all-genders', 'all', 'All', true);
                 renderRadioOption('gender', 'male', 'Male', 'Male');
@@ -258,18 +185,13 @@ $conn = getDatabaseConnection();
         <div class="filter-card">
             <div class="filter-title">Price Range</div>
             <div class="filter-section">
-                <div id="price-slider" class="price-slider"></div>
                 <div id="price-slider" class="price-slider" role="group" aria-labelledby="price-range-label" aria-describedby="price-range-description"> </div>
                 <div id="price-range-label" class="visually-hidden">Price Range Selection</div>
                 <div id="price-range-description" class="visually-hidden">Use slider to select minimum and maximum price</div>
                 <div class="price-range-values">
-                    <span>$<span id="price-min"><?php echo isset($_GET['min_price']) ? (int)$_GET['min_price'] : 0; ?></span></span>
-                    <span>$<span id="price-max"><?php echo isset($_GET['max_price']) ? (int)$_GET['max_price'] : 1000; ?></span></span>
                     <span>$<span id="price-min"><?php echo $minPrice; ?></span></span>
                     <span>$<span id="price-max"><?php echo $maxPrice; ?></span></span>
                 </div>
-                <input type="hidden" name="min_price" id="min-price-input" value="<?php echo isset($_GET['min_price']) ? (int)$_GET['min_price'] : 0; ?>">
-                <input type="hidden" name="max_price" id="max-price-input" value="<?php echo isset($_GET['max_price']) ? (int)$_GET['max_price'] : 1000; ?>">
                 <input type="hidden" name="min_price" id="min-price-input" value="<?php echo $minPrice; ?>">
                 <input type="hidden" name="max_price" id="max-price-input" value="<?php echo $maxPrice; ?>">
             </div>
@@ -278,24 +200,6 @@ $conn = getDatabaseConnection();
         <div class="filter-card">
             <div class="filter-title">Breeds</div>
             <div class="filter-section">
-                <div class="breed-list">
-                    <?php
-                    $config = parse_ini_file('/var/www/private/db-config.ini');
-                    if ($config) {
-                        $conn = new mysqli(
-                            $config['servername'],
-                            $config['username'],
-                            $config['password'],
-                            $config['dbname']
-                        );
-                        
-                        if (!$conn->connect_error) {
-                            renderBreedCheckboxes($conn);
-                            $conn->close();
-                        }
-                    }
-                    ?>
-                </div>
                 <?php
                 if ($conn && !$conn->connect_error) {
                     renderBreedCheckboxes($conn);
@@ -309,7 +213,6 @@ $conn = getDatabaseConnection();
         <button type="submit" class="btn btn-primary w-100 filter-button">Apply Filters</button>
         <a href="/listings" class="btn btn-outline-secondary w-100 mt-2">Reset Filters</a>
     </form>
-</div>
 </aside>
 
 <script>
@@ -319,21 +222,12 @@ $(document).ready(function() {
     
     if (priceSlider) {
         noUiSlider.create(priceSlider, {
-            start: [
-                <?php echo isset($_GET['min_price']) ? (int)$_GET['min_price'] : 0 ?>, 
-                <?php echo isset($_GET['max_price']) ? (int)$_GET['max_price'] : 1000 ?>
-            ],
             start: [<?php echo $minPrice; ?>, <?php echo $maxPrice; ?>],
             connect: true,
             range: {
-                'min': 0,
-                'max': 1000
                 'min': <?php echo $config['priceRange']['min']; ?>,
                 'max': <?php echo $config['priceRange']['max']; ?>
             },
-            step: 10
-        });
-        
 
             step: <?php echo $priceStep; ?>,
 
@@ -369,20 +263,10 @@ $(document).ready(function() {
     $('input[name="pet_type"]').change(function() {
         var selectedType = $(this).val();
         
-        if (selectedType === 'Dog') {
-            $('.breed-category:contains("Dogs")').show();
-            $('.breed-category:contains("Cats")').hide();
-            $('.breed-category:contains("Cats")').nextUntil('.breed-category').hide();
-        } else if (selectedType === 'Cat') {
-            $('.breed-category:contains("Dogs")').hide();
-            $('.breed-category:contains("Dogs")').nextUntil('.breed-category').hide();
-            $('.breed-category:contains("Cats")').show();
         if (selectedType === 'all') {
             // Show all breed categories and checkboxes
             $('.breed-category, .breed-list-container').show();
         } else {
-            $('.breed-category').show();
-            $('.breed-category').nextUntil('.breed-category').show();
             // Hide all breed categories and containers first
             $('.breed-category, .breed-list-container').hide();
             
@@ -392,15 +276,10 @@ $(document).ready(function() {
         }
     });
     
-    // Initialize pet type filter
-    var petType = "<?php echo isset($_GET['pet_type']) ? $_GET['pet_type'] : 'all'; ?>";
-    if (petType && petType !== 'all') {
-        $(`input[name="pet_type"][value="${petType}"]`).trigger('change');
-    }
     // Initialize pet type filter on page load
     $('input[name="pet_type"]:checked').trigger('change');
 });
-</script></script>
+</script>
 <?php
 // Close the database connection if it was opened
 if ($conn && !$conn->connect_error) {
