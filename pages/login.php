@@ -6,6 +6,7 @@
         ?>
         <!-- Add the reCAPTCHA script -->
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <title>Member Login page</title>
     </head>
     <body>
         <main class="container-lg w-60 w-md-80 w-sm-90 w-100 mx-auto">

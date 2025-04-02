@@ -1,7 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 // session_start();
 chdir("/var/www/html");
 
@@ -65,13 +65,13 @@ require "sendEmail.php";
             exit;
         }
         else{
-            echo "<h4><strong>The following input errors were detected:</strong></h4>";
+            echo "<h1><strong>The following input errors were detected:</strong></h1>";
             echo "<p>" . $errorMsg . "</p>";
             echo "<a href=/login><button class='btn btn-danger'>Return to Login</button></a>";
         }
     }
     else{
-        echo "<h4>Get request not allowed</h4>";
+        echo "<p>Get request not allowed</p><br>";
         echo "<p>go away</p>";
     }
 

@@ -33,11 +33,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 ?>
 
-<html>
+<html lang="en">
 <head>
     <?php
     include 'inc/head.inc.php';
     ?>
+    <title>OTP verification page</title>
+
 </head>
 <body>
     <?php include 'inc/navbar.inc.php'; ?>

@@ -4,6 +4,8 @@
             include 'inc/head.inc.php';
             include 'inc/navbar.inc.php'; 
         ?>
+        <title>Check if user exists page</title>
+
     </head>
     <body>
         <main class="container-lg w-60 w-md-80 w-sm-90 w-100 mx-auto">
@@ -15,7 +17,7 @@
 
                 <div class="mb-3">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" class="form-control" maxlength="45"
+                    <input type="email" id="email" name="email" class="form-control" aria-label="Email input" maxlength="45"
                     placeholder="Enter email" required>
                 </div>
 

@@ -13,7 +13,7 @@ session_start();
 </head>
 <body>
     <?php include 'inc/navbar.inc.php'; ?>
-
+    <main>
     <div class="container my-5">
         <h1>Your Adoption Cart</h1>
         
@@ -41,7 +41,7 @@ session_start();
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <img src="listingImages/<?= htmlspecialchars($item['image']) ?>" class="cart-pet-img me-3" alt="<?= htmlspecialchars($item['name']) ?>">
+                                        <img src="listingImages/<?= htmlspecialchars($item['image']) ?>" class="cart-pet-img me-3" alt="<?= htmlspecialchars($item['name']) ?> photo">
                                         <?= htmlspecialchars($item['name']) ?>
                                     </div>
                                 </td>
@@ -49,7 +49,7 @@ session_start();
                                 <td>
                                     <form action="backend/update_cart.php" method="post" class="d-inline">
                                         <input type="hidden" name="pet_id" value="<?= $id ?>">
-                                        <input type="number" name="quantity" value="<?= $item['quantity'] ?>" min="1" class="form-control" style="width: 80px;">
+                                        <input type="number" name="quantity" value="<?= $item['quantity'] ?>" min="1" class="form-control" style="width: 80px;" aria-label="quantity">
                                         <button type="submit" class="btn btn-sm btn-primary mt-1">Update</button>
                                     </form>
                                 </td>
@@ -66,8 +66,8 @@ session_start();
                     <tfoot>
                         <tr>
                             <th colspan="3">Total</th>
-                            <th>$<?= number_format($total, 2) ?></th>
-                            <th></th>
+                            <th colspan="2">$<?= number_format($total, 2) ?></th>
+                            <!-- <th></th> -->
                         </tr>
                     </tfoot>
                 </table>
@@ -85,7 +85,7 @@ session_start();
 
         <a href="/listings" class="btn btn-primary">Continue Browsing</a>
     </div>
-
+    </main>
     <?php include 'inc/footer.inc.php'; ?>
 </body>
 </html>
