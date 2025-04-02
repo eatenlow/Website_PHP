@@ -30,16 +30,19 @@ function renderBreedCheckboxes($conn) {
     echo '<div class="breed-category">Dogs</div>';
     if ($dogBreedsResult->num_rows > 0) {
         while ($row = $dogBreedsResult->fetch_assoc()) {
+            $breed = htmlspecialchars($row['breed']);
+            $breedId = 'breed-' . preg_replace('/\s+/', '-', strtolower($row['breed']));
+
             echo '<div class="form-check">';
-            echo '<input class="form-check-input" type="checkbox" name="breeds[]" id="breed-' . htmlspecialchars($row['breed']) . '" value="' . htmlspecialchars($row['breed']) . '"';
-            
+            echo '<input class="form-check-input" type="checkbox" name="breeds[]" id="' . $breedId . '" value="' . $breed . '"';
+
             // Check if this breed is selected in the filter
             if (isset($_GET['breeds']) && in_array($row['breed'], $_GET['breeds'])) {
                 echo ' checked';
             }
             
             echo '>';
-            echo '<label class="form-check-label" for="breed-' . htmlspecialchars($row['breed']) . '">' . htmlspecialchars($row['breed']) . '</label>';
+            echo '<label class="form-check-label" for="' . $breedId . '">' . $breed . '</label>';
             echo '</div>';
         }
     } else {
@@ -53,16 +56,20 @@ function renderBreedCheckboxes($conn) {
     echo '<div class="breed-category">Cats</div>';
     if ($catBreedsResult->num_rows > 0) {
         while ($row = $catBreedsResult->fetch_assoc()) {
+            $breed = htmlspecialchars($row['breed']);
+            $breedId = 'breed-' . preg_replace('/\s+/', '-', strtolower($row['breed']));
+
             echo '<div class="form-check">';
             echo '<input class="form-check-input" type="checkbox" name="breeds[]" id="breed-' . htmlspecialchars($row['breed']) . '" value="' . htmlspecialchars($row['breed']) . '"';
             
+            echo '<input class="form-check-input" type="checkbox" name="breeds[]" id="' . $breedId . '" value="' . $breed . '"';
+
             // Check if this breed is selected in the filter
             if (isset($_GET['breeds']) && in_array($row['breed'], $_GET['breeds'])) {
                 echo ' checked';
             }
             
             echo '>';
-            echo '<label class="form-check-label" for="breed-' . htmlspecialchars($row['breed']) . '">' . htmlspecialchars($row['breed']) . '</label>';
             echo '</div>';
         }
     } else {
@@ -73,7 +80,6 @@ function renderBreedCheckboxes($conn) {
 
 <!-- Filter Sidebar HTML -->
 <div class="col-md-3 filter-sidebar">
-    <form id="filter-form" method="GET" action="">
 
     <div class="filter-card">
             <div class="filter-title">Search</div>
