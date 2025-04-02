@@ -60,8 +60,6 @@ function renderBreedCheckboxes($conn) {
             $breedId = 'breed-' . preg_replace('/\s+/', '-', strtolower($row['breed']));
 
             echo '<div class="form-check">';
-            echo '<input class="form-check-input" type="checkbox" name="breeds[]" id="breed-' . htmlspecialchars($row['breed']) . '" value="' . htmlspecialchars($row['breed']) . '"';
-            
             echo '<input class="form-check-input" type="checkbox" name="breeds[]" id="' . $breedId . '" value="' . $breed . '"';
 
             // Check if this breed is selected in the filter
@@ -70,6 +68,7 @@ function renderBreedCheckboxes($conn) {
             }
             
             echo '>';
+            echo '<label class="form-check-label" for="' . $breedId . '">' . $breed . '</label>';
             echo '</div>';
         }
     } else {
@@ -80,6 +79,7 @@ function renderBreedCheckboxes($conn) {
 
 <!-- Filter Sidebar HTML -->
 <div class="col-md-3 filter-sidebar">
+    <form id="filter-form" method="GET">
 
     <div class="filter-card">
             <div class="filter-title">Search</div>

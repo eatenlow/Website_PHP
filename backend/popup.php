@@ -55,7 +55,6 @@ function generateDescriptionPopups($conn) {
 <!-- Image Popup HTML -->
 <div class="image-popup" style="display: none;">
     <button id="close-popup" style="position: absolute; top: 20px; right: 20px; background: rgba(128, 128, 128, 0.7); border: none; color: white; font-size: 24px; padding: 8px; border-radius: 50%; cursor: pointer; line-height: 1;">&times;</button>
-    <img id="popup-image" src="" alt="Popup Image">
     <?php $imagePath = dirname(__DIR__).'/listingImages/'.htmlspecialchars($row['image']);?>
     <img id="popup-image" src="<?php echo $imagePath; ?>" alt="Popup Image">
 </div>
