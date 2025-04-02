@@ -13,7 +13,7 @@
     <?php
     include 'inc/head.inc.php';
     require_once 'backend/db.php'; // Secure database connection
-    require_once 'backend/carousel.php'; // Load the function for fetching OG images 
+    require_once 'backend/ogimage.php'; // Load the function for fetching OG images 
 
     // Fetch articles
     $sql = "SELECT * FROM articles ORDER BY ID DESC";
