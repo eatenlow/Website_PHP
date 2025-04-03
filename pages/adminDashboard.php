@@ -72,10 +72,7 @@
         $pet_labels[] = $row['pet_type'];
         $pet_data[] = $row['count'];
         }
-
-        
     ?>    
-
     <title>Admin Dashboard</title>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -88,19 +85,19 @@
         <!-- Main Content -->
         <main class="main-content flex-grow-1 p-4">
             <div class="container-fluid">
-            <div class="dashboard-header d-flex justify-content-between align-items-center">
-                <div>
-                    <h1 class="mb-0">Dashboard Overview</h1>
-                    <p class="text-muted mb-0">Welcome back, Admin</p>
+                <div class="dashboard-header d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="mb-0">Dashboard Overview</h1>
+                        <p class="text-muted mb-0">Welcome back, Admin</p>
+                    </div>
+                    <div class="text-end">
+                        <button id="refreshDashboard" class="btn btn-sm btn-outline-secondary me-2"
+                                aria-label="Refresh dashboard data">
+                            <i class="bi bi-arrow-clockwise"></i> Refresh
+                        </button>
+                        <small class="text-muted">Last updated: <span id="lastUpdated" data-server-time="<?php echo date('c'); ?>"><?php echo date('F j, Y, g:i a'); ?></span></small>
+                    </div>
                 </div>
-                <div class="text-end">
-                <button id="refreshDashboard" class="btn btn-sm btn-outline-secondary me-2"
-                        aria-label="Refresh dashboard data">
-                    <i class="bi bi-arrow-clockwise"></i> Refresh
-                </button>
-                    <small class="text-muted">Last updated: <span id="lastUpdated"><?php echo date('F j, Y, g:i a'); ?></span></small>
-                </div>
-            </div>
 
                 <div class="row mb-4">
                     <!-- Total Users Card with Age Pie Chart -->
@@ -118,7 +115,7 @@
                             </div>
                             <div class="card-footer d-flex justify-content-between align-items-center">
                                 <span>Manage Users</span>
-                                    <a href="/manageUser" class="text-white" aria-label="Manage users">
+                                <a href="/manageUser" class="text-white" aria-label="Manage users">
                                     <i class="bi bi-arrow-right-circle"></i>
                                 </a>
                             </div>
@@ -140,7 +137,7 @@
                             </div>
                             <div class="card-footer d-flex justify-content-between align-items-center">
                                 <span>Manage Listings</span>
-                                    <a href="/manageList" class="text-white" aria-label="Manage pet listings">
+                                <a href="/manageList" class="text-white" aria-label="Manage pet listings">
                                     <i class="bi bi-arrow-right-circle"></i>
                                 </a>
                             </div>
@@ -158,7 +155,7 @@
                             <div class="card-footer d-flex justify-content-between align-items-center">
                                 <span>Manage Events</span>
                                 <a href="/manageEvents" class="text-white" aria-label="Manage events">
-                                <i class="bi bi-arrow-right-circle"></i>
+                                    <i class="bi bi-arrow-right-circle"></i>
                                 </a>
                             </div>
                         </div>
@@ -170,112 +167,157 @@
     <?php include "inc/footer.inc.php"; ?>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    // Age Distribution Pie Chart with proper tooltips
-    const ageCtx = document.getElementById('ageDistributionChart').getContext('2d');
-    new Chart(ageCtx, {
-        type: 'pie',
-        data: {
-            labels: <?php echo json_encode($age_labels); ?>,
-            datasets: [{
-                data: <?php echo json_encode($age_data); ?>,
-                backgroundColor: [
-                    'rgba(255,255,255,0.7)',
-                    'rgba(255,255,255,0.5)',
-                    'rgba(255,255,255,0.3)',
-                    'rgba(255,255,255,0.2)',
-                    'rgba(255,255,255,0.1)'
-                ],
-                borderColor: 'rgba(255,255,255,0.2)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'right',
-                    labels: {
-                        color: 'white',
-                        font: {
-                            weight: '500'
-                        },
-                        padding: 15,
-                        usePointStyle: true,
-                        pointStyle: 'circle'
-                    }
-                },
-                tooltip: {
-                    enabled: true,
-                    usePointStyle: true,
-                    callbacks: {
-                        title: function(context) {
-                            return context[0].label; // Just return the label text
-                        },
-                        label: function(context) {
-                            const total = <?php echo $total_users; ?>;
-                            const percentage = Math.round((context.raw / total) * 100);
-                            return `${context.raw} users (${percentage}%)`; // Plain text format
-                        }
-                    }
-                }
-            },
-            cutout: '0%'
-        }
-    });
-});
+    // Function to update timestamp to local time
+    function updateLocalTime() {
+        const lastUpdated = document.getElementById('lastUpdated');
+        const serverTime = new Date(lastUpdated.dataset.serverTime);
+        
+        // Format as local time
+        const options = { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit',
+            hour12: true
+        };
+        lastUpdated.textContent = serverTime.toLocaleString(undefined, options);
+    }
 
-    // Pet Distribution Chart
-    const petCtx = document.getElementById('petDistributionChart').getContext('2d');
-    new Chart(petCtx, {
-        type: 'bar',
-        data: {
-            labels: <?php echo json_encode($pet_labels); ?>,
-            datasets: [{
-                label: 'Listings',
-                data: <?php echo json_encode($pet_data); ?>,
-                backgroundColor: 'rgba(255,255,255,0.7)',
-                borderColor: 'rgba(255,255,255,0.2)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return `${context.raw} listings (${Math.round((context.raw/<?php echo $total_listings; ?>)*100)}%)`;
+    // Refresh button functionality
+    document.getElementById('refreshDashboard').addEventListener('click', function() {
+        const refreshBtn = this;
+        
+        // Show loading state
+        refreshBtn.innerHTML = '<i class="bi bi-arrow-clockwise"></i> Refreshing...';
+        refreshBtn.disabled = true;
+        
+        // Update to current local time immediately
+        const now = new Date();
+        document.getElementById('lastUpdated').textContent = now.toLocaleString(undefined, {
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit',
+            hour12: true
+        });
+        
+        // Reload the page after a brief delay
+        setTimeout(() => {
+            location.reload();
+        }, 500);
+    });
+
+    // Initialize with local time on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        updateLocalTime();
+        
+        // Age Distribution Pie Chart
+        const ageCtx = document.getElementById('ageDistributionChart').getContext('2d');
+        new Chart(ageCtx, {
+            type: 'pie',
+            data: {
+                labels: <?php echo json_encode($age_labels); ?>,
+                datasets: [{
+                    data: <?php echo json_encode($age_data); ?>,
+                    backgroundColor: [
+                        'rgba(255,255,255,0.7)',
+                        'rgba(255,255,255,0.5)',
+                        'rgba(255,255,255,0.3)',
+                        'rgba(255,255,255,0.2)',
+                        'rgba(255,255,255,0.1)'
+                    ],
+                    borderColor: 'rgba(255,255,255,0.2)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            color: 'white',
+                            font: {
+                                weight: '500'
+                            },
+                            padding: 15,
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        usePointStyle: true,
+                        callbacks: {
+                            title: function(context) {
+                                return context[0].label;
+                            },
+                            label: function(context) {
+                                const total = <?php echo $total_users; ?>;
+                                const percentage = Math.round((context.raw / total) * 100);
+                                return `${context.raw} users (${percentage}%)`;
+                            }
                         }
                     }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        color: 'rgba(255,255,255,0.1)'
-                    },
-                    ticks: {
-                        color: 'rgba(255,255,255,0.7)'
-                    }
                 },
-                x: {
-                    grid: {
+                cutout: '0%'
+            }
+        });
+
+        // Pet Distribution Chart
+        const petCtx = document.getElementById('petDistributionChart').getContext('2d');
+        new Chart(petCtx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($pet_labels); ?>,
+                datasets: [{
+                    label: 'Listings',
+                    data: <?php echo json_encode($pet_data); ?>,
+                    backgroundColor: 'rgba(255,255,255,0.7)',
+                    borderColor: 'rgba(255,255,255,0.2)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
                         display: false
                     },
-                    ticks: {
-                        color: 'rgba(255,255,255,0.7)'
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.raw} listings (${Math.round((context.raw/<?php echo $total_listings; ?>)*100)}%)`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255,255,255,0.1)'
+                        },
+                        ticks: {
+                            color: 'rgba(255,255,255,0.7)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: 'rgba(255,255,255,0.7)'
+                        }
                     }
                 }
             }
-        }
+        });
     });
-</script>
+    </script>
 </body>
 </html>
