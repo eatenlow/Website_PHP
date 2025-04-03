@@ -66,7 +66,7 @@ $conn->close();
                                     <i class="bi bi-pencil-fill text-primary" style="font-size: 1rem;"></i>
                                     </a>
                                     <form method="post" action="backend/delete_event.php" style="display:inline;">
-                                        <input type="hidden" name="id" value="<?php echo $row['pet_ID']; ?>">
+                                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                         <button type="submit" class="border-0 bg-transparent p-0" onclick="return confirm('Are you sure?')" aria-label='Delete Event'>
                                             <i class="bi bi-trash-fill text-danger" style="font-size: 1rem;"></i>
                                         </button>

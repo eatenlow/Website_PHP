@@ -13,3 +13,5 @@ RewriteRule ^(.*)$ index.php?$1 [L,QSA]
 
 RewriteCond %{HTTPS} !=on
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+Options -Indexes

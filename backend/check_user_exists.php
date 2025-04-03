@@ -88,46 +88,27 @@ require "sendEmail.php";
     function checkUser($email){
         global $email, $userID, $errorMsg, $success;
         // Create database connection.
-        $config = parse_ini_file('/var/www/private/db-config.ini');
-        if (!$config){
-            $errorMsg = "Failed to read database config file.";
-            $success = false;
+        require_once 'db.php';
+        // Prepare the statement:
+        $stmt = $conn->prepare("SELECT * FROM world_of_pets_members WHERE email=?");
+        // Bind & execute the query statement:
+        $stmt->bind_param("s", sanitize_input($email));
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0){
+            $row = $result->fetch_assoc();
+            $userID = $row["member_id"];
+            $admin = $row["admin"];
+            if($admin == 1){
+                $_SESSION['admin'] = $admin;
+            }
         }
         else{
-            $conn = new mysqli(
-                $config['servername'],
-                $config['username'],
-                $config['password'],
-                $config['dbname']
-            );
-            // Check connection
-            if ($conn->connect_error){
-                $errorMsg = "Connection failed: " . $conn->connect_error;
-                $success = false;
-            }
-            else{
-                // Prepare the statement:
-                $stmt = $conn->prepare("SELECT * FROM world_of_pets_members WHERE email=?");
-                // Bind & execute the query statement:
-                $stmt->bind_param("s", sanitize_input($email));
-                $stmt->execute();
-                $result = $stmt->get_result();
-                if ($result->num_rows > 0){
-                    $row = $result->fetch_assoc();
-                    $userID = $row["member_id"];
-                    $admin = $row["admin"];
-                    if($admin == 1){
-                        $_SESSION['admin'] = $admin;
-                    }
-                }
-                else{
-                    $errorMsg = "Account not found...";
-                    $success = false;
-                }
-                $stmt->close();
-            }
-            $conn->close();
+            $errorMsg = "Account not found...";
+            $success = false;
         }
+        $stmt->close();
+        $conn->close();
     }
 
     ?>

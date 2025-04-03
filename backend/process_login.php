@@ -1,7 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 // session_start();
 chdir("/var/www/html");
 
@@ -9,16 +9,13 @@ chdir("/var/www/html");
 require "sendEmail.php"; 
 
 ?>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-
-    <title>Home | PetAdopt</title>
-    <?php include 'inc/navbar.inc.php'; ?>
+    <title>verify login | PetAdopt</title>
+    <?php 
+    include 'inc/head.inc.php';
+    include 'inc/navbar.inc.php';
+     ?>
 </head>
 <body>
     <main class="container">
@@ -30,7 +27,6 @@ require "sendEmail.php";
         
         // Verify reCAPTCHA, need the trim due to unknown additional trailing whitespace
         $recaptcha_secret = trim(file_get_contents("/var/www/private/recaptcha-secret.txt"));
-        var_dump($recaptcha_secret);
 
         $recaptcha_response = $_POST['g-recaptcha-response'];
         
@@ -88,7 +84,7 @@ require "sendEmail.php";
             exit;
         }
         else{
-            echo "<h4><strong>The following input errors were detected:</strong></h4>";
+            echo "<h1><strong>The following input errors were detected:</strong></h1>";
             echo "<p>" . $errorMsg . "</p>";
             echo "<a href=/login><button class='btn btn-danger'>Return to Login</button></a>";
         }
@@ -119,105 +115,38 @@ require "sendEmail.php";
     function authenticateUser($pwd){
         global $fname, $lname, $email, $userID, $pwd_hashed, $admin, $errorMsg, $success;
         // Create database connection.
-        $config = parse_ini_file('/var/www/private/db-config.ini');
-        if (!$config){
-            $errorMsg = "Failed to read database config file.";
-            $success = false;
-        }
-        else{
-            $conn = new mysqli(
-                $config['servername'],
-                $config['username'],
-                $config['password'],
-                $config['dbname']
-            );
-            // Check connection
-            if ($conn->connect_error){
-                $errorMsg = "Connection failed: " . $conn->connect_error;
+        require_once 'db.php';
+        // Prepare the statement:
+        $stmt = $conn->prepare("SELECT * FROM world_of_pets_members WHERE email=?");
+        // Bind & execute the query statement:
+        $stmt->bind_param("s", sanitize_input($email));
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0){
+            // Note that email field is unique, so should only have one row.
+            $row = $result->fetch_assoc();
+            $userID = $row["member_id"];
+            $fname = $row["fname"];
+            $lname = $row["lname"];
+            $pwd_hashed = $row["password"];
+            $admin = $row["admin"];
+            if($admin == 1){
+                $_SESSION['admin'] = $admin;
+            }
+            // Check if the password matches:
+            if (strcmp($pwd, $pwd_hashed) != 0){
+                $errorMsg = "Email not found or password doesn't match...";
                 $success = false;
             }
-            else{
-                // Prepare the statement:
-                $stmt = $conn->prepare("SELECT * FROM world_of_pets_members WHERE email=?");
-                // Bind & execute the query statement:
-                $stmt->bind_param("s", sanitize_input($email));
-                $stmt->execute();
-                $result = $stmt->get_result();
-                if ($result->num_rows > 0){
-                    // Note that email field is unique, so should only have one row.
-                    $row = $result->fetch_assoc();
-                    $userID = $row["member_id"];
-                    $fname = $row["fname"];
-                    $lname = $row["lname"];
-                    $pwd_hashed = $row["password"];
-                    $admin = $row["admin"];
-                    if($admin == 1){
-                        debug_to_console($admin);
-                        $_SESSION['admin'] = $admin;
-                    }
-                    // Check if the password matches:
-                    if (strcmp($pwd, $pwd_hashed) != 0){
-                        // Don't tell hackers which one was wrong, keep them guessing...
-                        $errorMsg = "Email not found or password doesn't match...";
-                        $success = false;
-                    }
-                }
-                else{
-                    $errorMsg = "Email not found or password doesn't match...";
-                    $success = false;
-                }
-                $stmt->close();
-            }
-            $conn->close();
-        }
-    }
-
-    function cookieCreate(){
-        $selector = base64_encode(random_bytes(9));
-        $authenticator = random_bytes(33);
-        $token = $selector.':'.base64_encode($authenticator);
-
-        $COOKIE_NAME    = "MYCOOKIE";
-        $COOKIE_VALUE   = "HAI";
-        if(!isset($_COOKIE[$COOKIE_NAME])){
-            setcookie(
-                $COOKIE_NAME, 
-                $token, 
-                time() + 864000,
-                "/",
-                "http://35.212.148.165",
-                false,
-                true
-            );
-            // header("Location: /");
-            exit;
         }
         else{
-            echo ($_COOKIE[$COOKIE_NAME]);
-        }
-        $config = parse_ini_file('/var/www/private/db-config.ini');
-        $conn = new mysqli(
-            $config['servername'],
-            $config['username'],
-            $config['password'],
-            $config['dbname']
-        );
-        // Check connection
-        if ($conn->connect_error){
-            $errorMsg = "Connection failed: " . $conn->connect_error;
+            $errorMsg = "Email not found or password doesn't match...";
             $success = false;
         }
-        else{
-            $stmt = $conn->prepare("INSERT INTO auth_tokens (selector, token, userid, expires) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssis", $selector,
-                                    hash('sha256', $authenticator),
-                                    $userID,
-                                    date('Y-m-d\TH:i:s', time() + 864000));
-            $stmt->execute();
-            $stmt->close();
-        }
+        $stmt->close();
         $conn->close();
     }
+
     ?>
 
     </main>

@@ -34,6 +34,16 @@ chdir("/var/www/html");
                 $errorMsg .= "Last name is required.<br>";
                 $success = false;
             }
+
+            if (empty($_POST["address"])){
+                $errorMsg .= "address is required.<br>";
+                $success = false;
+            }
+
+            if (empty($_POST["dob"])){
+                $errorMsg .= "Date of Birth is required.<br>";
+                $success = false;
+            }
     
             if(empty($_POST["pwd"]) || empty($_POST["pwd_confirm"])){
                 $errorMsg .= "Password is required.<br>";
@@ -53,7 +63,7 @@ chdir("/var/www/html");
             $address = sanitize_input($_POST["address"]);
             $dob2 = strtotime($_POST["dob"]);
             $dob = date('Y-m-d', $dob2);
-            var_dump([$fname, $lname, $email, $address, $dob, $pwd_hashed]);
+            // var_dump([$fname, $lname, $email, $address, $dob, $pwd_hashed]);
             if ($success){
                 saveMemberToDB($fname, $lname, $email, $address, $dob, $pwd_hashed);
             }
@@ -104,48 +114,29 @@ chdir("/var/www/html");
         * Helper function to write the member data to the database.
         */
         function saveMemberToDB($fname, $lname, $email, $address, $dob, $pwd_hashed){
-            // Create database connection.
-            global  $errorMsg, $success;
-            require_once 'db.php';
+            try{
+                // Create database connection.
+                global  $errorMsg, $success;
+                require_once 'db.php';
+                // Prepare the statement:
+                $stmt = $conn->prepare("INSERT INTO world_of_pets_members
+                (fname, lname, email, password, address, dateofbirth) VALUES (?, ?, ?, ?, ?, ?)");
+                // Bind & execute the query statement:
+                $stmt->bind_param("ssssss", $fname, $lname, $email, $pwd_hashed, $address, $dob);
+                $stmt->execute();            
+            }
+            catch(Exception $e){
+                $errorMsg = $e->getMessage();
+                if(str_contains($errorMsg, 'Duplicate')){
+                    $errorMsg = "Account already exists.";
+                }
+                $success = false;
+            }
+            finally{
+                $stmt->close();
+                $conn->close();
+            }
 
-            // $config = parse_ini_file('/var/www/private/db-config.ini');
-            // if (!$config){
-            //     $errorMsg = "Failed to read database config file.";
-            //     debug_to_console($errorMsg);
-            //     $success = false;
-            // }
-            // else{
-            //     $conn = new mysqli(
-            //     $config['servername'],
-            //     $config['username'],
-            //     $config['password'],
-            //     $config['dbname']
-            //     );
-            //     // Check connection
-            //     if ($conn->connect_error){
-            //         $errorMsg = "Connection failed: " . $conn->connect_error;
-            //         $success = false;
-            //         debug_to_console($errorMsg);
-            //     }
-            //     else{
-                    // Prepare the statement:
-                    $stmt = $conn->prepare("INSERT INTO world_of_pets_members
-                    (fname, lname, email, password, address, dateofbirth) VALUES (?, ?, ?, ?, ?, ?)");
-                    // Bind & execute the query statement:
-                    echo "LMAO";
-                    $stmt->bind_param("ssssss", $fname, $lname, $email, $pwd_hashed, $address, $dob);
-
-                    if (!$stmt->execute()){
-                        $errorMsg = "Execute failed: (" . $stmt->errno . ") " .
-                        $stmt->error;
-                        $success = false;
-                        debug_to_console($errorMsg);
-                    }
-                    echo "LMAO";
-                    $stmt->close();
-                // }
-            $conn->close();
-            // }
         }
         ?>
 

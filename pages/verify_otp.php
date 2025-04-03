@@ -3,7 +3,7 @@
 session_start();
 
 if (!isset($_SESSION['2fa_user_id']) || !isset($_SESSION['2fa_otp']) || !isset($_SESSION['2fa_otp_expiry'])) {
-    header("Location: login.php");
+    header("Location: /login");
     exit;
 }
 
