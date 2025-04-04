@@ -1,5 +1,9 @@
 /* Home page */
 /* Hero and why adopt section */
+.card-img, .card-img-bottom, .card-img-top {
+    width: 100%;
+    height: 300px;
+}
 .hover-card {
     transition: all 0.3s ease;
 }

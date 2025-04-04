@@ -13,8 +13,6 @@ $otp_expiry = $_SESSION['2fa_otp_expiry'];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $entered_otp = $_POST['otp'];
-    echo $entered_otp;
-    echo $stored_otp;
 
     if ($entered_otp == $stored_otp && time() < $otp_expiry) {
         // OTP is correct and not expired

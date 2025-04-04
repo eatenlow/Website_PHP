@@ -110,7 +110,7 @@
                                     <i class="bi bi-envelope-fill me-2 contact-icon"></i>
                                     <h3 class="mb-0">Email</h3>
                                 </div>
-                                <p class="card-text"><a href="mailto:contact@petadopt.com" class="text-decoration-none">contact@petadopt.com</a></p>
+                                <p class="card-text"><a href="mailto:contact@petadopt.com" class="text-decoration-none">pet.adopt.alert@gmail.com</a></p>
                             </div>
                         </div>
 
@@ -120,7 +120,7 @@
                                     <i class="bi bi-telephone-fill me-2 contact-icon"></i>
                                     <h3 class="mb-0">Phone</h3>
                                 </div>
-                                <p class="card-text"><a href="tel:+6591234567" class="text-decoration-none">+65 9123 4567</a></p>
+                                <p class="card-text"><a href="tel:+6591234567" class="text-decoration-none">+65 9155 8708</a></p>
                             </div>
                         </div>
 
