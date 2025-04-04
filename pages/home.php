@@ -148,7 +148,7 @@
                         echo '<img src="listingImages/' . htmlspecialchars($pet['image']) . '" class="card-img-top" alt="' . htmlspecialchars($pet['pet_name']) . '">';
                     } else {
                         // Fallback to default images based on pet type
-                        $defaultImage = 'poodle_large.jpg'; // Default to dog
+                        $defaultImage = 'poodle_large.jpg';
                         if (strtolower($pet['pet_type']) == 'cat') {
                             $defaultImage = 'calico_large.jpg';
                         }
