@@ -20,7 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         $fname = $conn->real_escape_string(trim($_POST['fname']));
         $lname = $conn->real_escape_string(trim($_POST['lname']));
         $email = $conn->real_escape_string(trim($_POST['email']));
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        // $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $password = hash('sha256', $_POST["password"]);
         $address = isset($_POST['address']) ? $conn->real_escape_string(trim($_POST['address'])) : '';
         $dob = isset($_POST['dateofbirth']) ? $conn->real_escape_string(trim($_POST['dateofbirth'])) : null;
         $admin = isset($_POST['admin']) ? 1 : 0;
