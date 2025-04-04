@@ -179,30 +179,6 @@
     /* Darker grey on hover */
 }
 
-/* Default: 3 cards per slide */
-@media (min-width: 992px) {
-    .carousel-item .col-md-4 {
-        flex: 0 0 33.33%;
-        max-width: 33.33%;
-    }
-}
-
-/* Medium Screens: 2 cards per slide */
-@media (max-width: 991px) and (min-width: 768px) {
-    .carousel-item .col-md-4 {
-        flex: 0 0 50%;
-        max-width: 50%;
-    }
-}
-
-/* Small Screens: 1 card per slide */
-@media (max-width: 767px) {
-    .carousel-item .col-md-4 {
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
-}
-
 .featured-title {
     font-size: 1.8rem;
     font-weight: bold;
@@ -513,6 +489,7 @@ a {
     object-fit: cover;
     border-radius: 4px;
 }
+
 .summary-card {
     background-color: rgba(13, 110, 253, 0.1);
     border-radius: 10px;
@@ -524,6 +501,7 @@ a {
     object-fit: cover;
     border-radius: 4px;
 }
+
 /* Adoption Steps Section Styles */
 .adoption-step-card {
     padding: 1.5rem;
@@ -578,7 +556,7 @@ a {
 .stat-card {
     border-radius: 12px;
     border: none;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     overflow: hidden;
     margin-bottom: 1.5rem;
@@ -587,7 +565,7 @@ a {
 
 .stat-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 }
 
 .stat-card .card-body {
@@ -629,7 +607,7 @@ a {
 }
 
 .stat-card .card-footer {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     border-top: none;
     padding: 0.9rem 1.75rem;
     font-size: 0.9rem;
@@ -648,7 +626,7 @@ a {
 .stat-card.bg-primary .card-value,
 .stat-card.bg-primary .card-title,
 .stat-card.bg-primary .card-footer span {
-    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 /* Chart specific styles */
@@ -664,7 +642,7 @@ a {
     padding: 10px 15px !important;
     color: white !important;
     font-family: inherit !important;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
     border: none !important;
 }
 
@@ -682,11 +660,13 @@ a {
 #refreshDashboard {
     transition: all 0.2s ease;
 }
+
 #refreshDashboard:hover {
     background-color: #f8f9fa;
     border-color: #6c757d;
     color: #495057;
 }
+
 #refreshDashboard:focus {
     box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.5);
 }
@@ -695,9 +675,15 @@ a {
 .refreshing {
     animation: spin 1s linear infinite;
 }
+
 @keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 
@@ -706,6 +692,7 @@ a {
     .stat-card .card-icon {
         font-size: 3.8rem;
     }
+
     .age-chart-container {
         height: 160px;
     }
@@ -715,12 +702,15 @@ a {
     .stat-card {
         margin-bottom: 1.25rem;
     }
+
     .stat-card .card-icon {
         font-size: 3.2rem;
     }
+
     .stat-card .card-value {
         font-size: 2rem;
     }
+
     .age-chart-container {
         height: 140px;
     }
@@ -730,6 +720,7 @@ a {
     .stat-card .card-body {
         padding: 1.5rem;
     }
+
     .age-chart-container {
         height: 120px;
     }
