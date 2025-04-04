@@ -46,9 +46,11 @@ function buildFilterConditions($conn) {
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $searchTerm = "%{$_GET['search']}%";
         $conditions[] = "(LOWER(pet_name) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?))";
+        $conditions[] = "LOWER(pet_name) LIKE LOWER(?)";
         $params[] = $searchTerm;
         $params[] = $searchTerm;
         $types .= 'ss';
+        $types .= 's';
     }
     
     // Build WHERE clause
