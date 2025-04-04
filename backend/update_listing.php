@@ -81,7 +81,7 @@
             updateListing();
     
             if ($success){
-                echo "<h4>Update successful!</h4>";
+                echo "<h1>Update successful!</h1>";
                 echo "<p>Name: " . $name . "</p>";
                 echo "<p>Type: " . $type . "</p>";
                 echo "<p>Breed: " . $breed . "</p>";
@@ -93,7 +93,7 @@
                 echo "<a href=/home><button type=submit class='btn btn-success'>Back to Home</button></a>";
             }
             else{
-                echo "<h4><strong>The following input errors were detected:</strong></h4>";
+                echo "<h1><strong>The following input errors were detected:</strong></h1>";
                 echo "<p>" . $errorMsg . "</p>";
                 echo "<a href=/home><button class='btn btn-danger'>Return to Home</button></a>";
             }
@@ -104,7 +104,7 @@
             echo time();
             echo $_SESSION['LAST_ACTIVITY'];
 
-            echo "<h4>Get request not allowed</h4>";
+            echo "<h1>Get request not allowed</h1>";
             echo "<p>go awayZ</p>";
         }
 

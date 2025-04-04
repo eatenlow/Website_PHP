@@ -51,7 +51,7 @@
                             $pwd_hashed = $row["password"];
                             $address = $row['address'];
                             $dob = $row['dateofbirth'];
-                            $dob_display = date('d-m-Y',strtotime($dob));
+                            // $dob_display = date('d-m-Y',strtotime($dob));
                             $_SESSION['pw_hash'] = $pwd_hashed;
                         }
                         else{
@@ -101,8 +101,8 @@
                 <div class="mb-3">
                     <form-label for="dob">Date of Birth:</form-label>
                     <?php 
-                    echo '<input type="text" id="dob" name="dob" class="form-control"
-                    value='.$dob.' required onfocus="this.type=\'date\';" onblur="this.type=\'text\';" required/>'
+                    echo '<input type="date" id="dob" name="dob" class="form-control"
+                    value='.$dob.' required/>'
                     ?>
                 </div>
 

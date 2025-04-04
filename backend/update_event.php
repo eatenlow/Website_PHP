@@ -26,7 +26,6 @@
             else{
                 $title = sanitize_input($_POST["title"]);
             }
-            echo "KO";
             if (empty($_POST["date"])){
                 $errorMsg .= "date is required.<br>";
                 $success = false;

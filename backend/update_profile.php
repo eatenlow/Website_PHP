@@ -48,9 +48,8 @@ chdir("/var/www/html");
             }
     
             if(empty($_POST["pwd"])){
+                // reuse old password if there was no change
                 $pwd_hashed = $_SESSION['pw_hash'];
-                // $errorMsg .= "Password is required.<br>";
-                // $success = false;
             }
             else{
                 $pwd_hashed = hash('sha256', $_POST["pwd"]);
@@ -70,11 +69,11 @@ chdir("/var/www/html");
                 echo "<p>Last Name: " . $lname . "</p>";
                 echo "<p>Address: " . $address . "</p>";
                 echo "<p>Date of Birth: " . $dob . "</p>";
-                echo "<p>pass hash: ";
-                var_dump($pwd_hashed);
+                // echo "<p>pass hash: ";
+                // var_dump($pwd_hashed);
                 echo"</p>";
                 
-                echo "<a href=/home><button type=submit class='btn btn-success'>Log in</button></a>";
+                echo "<a href=/home><button type=submit class='btn btn-success'>Return to Home</button></a>";
                 unset($_SESSION['pw_hash']); 
             }
             else{
@@ -112,31 +111,11 @@ chdir("/var/www/html");
         */
         function updateProfile($fname, $lname, $email, $address, $dob, $pwd_hashed){
             $userID = $_SESSION['id'];
+           
+            // Create database connection.
             require_once 'backend/db.php';
 
-            // // Create database connection.
-            // global  $errorMsg, $success;
-            // $config = parse_ini_file('/var/www/private/db-config.ini');
-            // if (!$config){
-            //     $errorMsg = "Failed to read database config file.";
-            //     debug_to_console($errorMsg);
-            //     $success = false;
-            // }
-            // else{
-            //     $conn = new mysqli(
-            //     $config['servername'],
-            //     $config['username'],
-            //     $config['password'],
-            //     $config['dbname']
-            //     );
-            //     // Check connection
-            //     if ($conn->connect_error){
-            //         $errorMsg = "Connection failed: " . $conn->connect_error;
-            //         $success = false;
-            //         debug_to_console($errorMsg);
-            //     }
-            //     else{
-                    // Prepare the statement:
+            // Prepare the statement:
             $stmt = $conn->prepare("UPDATE world_of_pets_members SET
             fname=?, lname=?, email=?, password=?, address=?, dateofbirth=? WHERE member_id=?");
             // Bind & execute the query statement:
@@ -147,12 +126,7 @@ chdir("/var/www/html");
                 $success = false;
                 debug_to_console($errorMsg);
             }
-            debug_to_console($stmt->errno);
             $stmt->close();
-                // }
-            // $conn->close();
-            debug_to_console("Done");
-            // }
         }
         ?>
 

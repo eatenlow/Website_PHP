@@ -33,8 +33,45 @@
                     $details = $row['details'];
 
                     $times = explode('-', $time_range);
-                    $time1 = (explode(' ', $times[0])[0]);
-                    $time2 = (explode(' ', $times[1])[0]);
+                    $preTime1 = (explode(' ', $times[0]));
+                    if($preTime1[1] == "PM"){
+                        $tempTime = explode(' ', $times[0])[0];
+                        $hour = (int)explode(':', $tempTime)[0];
+                        if($hour != 12){
+                            $hour += 12;
+                        }
+                        $time1 = $hour . ":" . explode(':', $tempTime)[1];
+                    }
+                    else{
+                        $tempTime = explode(' ', $times[0])[0];
+                        $hour = (int)explode(':', $tempTime)[0];
+                        if($hour < 10){
+                            $time1 = '0' . $hour . ":" . explode(':', $tempTime)[1];
+                        }
+                        else{
+                            $time1 = $preTime1[0];
+                        }
+                       
+                    }
+                    $preTime2 = (explode(' ', $times[1]));
+                    if($preTime2[1] == "PM"){
+                        $tempTime = explode(' ', $times[1])[0];
+                        $hour = (int)explode(':', $tempTime)[0];
+                        if($hour != 12){
+                            $hour += 12;
+                        }
+                        $time2 = $hour . ":" . explode(':', $tempTime)[1];
+                    }
+                    else{
+                        $tempTime = explode(' ', $times[1])[0];
+                        $hour = (int)explode(':', $tempTime)[0];
+                        if($hour < 10){
+                            $time2 = '0' . $hour . ":" . explode(':', $tempTime)[1];
+                        }
+                        else{
+                            $time2 = $preTime2[0];
+                        }
+                    }
                 }
                 else{
                     // invalid listing ID redirect
